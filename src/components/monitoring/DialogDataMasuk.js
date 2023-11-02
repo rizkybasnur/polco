@@ -20,6 +20,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 
 function DialogDataMasuk({ open, onClose }) {
+  // eslint-disable-next-line
   const [dataGeo, setDataGeo] = React.useState([
     {
       no: "1",

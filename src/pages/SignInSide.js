@@ -48,9 +48,11 @@ const defaultTheme = createTheme({
 });
 
 export default function SignInSide() {
+  // eslint-disable-next-line
   const navigate = useNavigate();
 
   const isXs = useMediaQuery("(max-width:600px)");
+  // eslint-disable-next-line
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
@@ -73,6 +75,7 @@ export default function SignInSide() {
   };
 
   const [email, setEmail] = React.useState("");
+  // eslint-disable-next-line
   const [error, setError] = React.useState("");
 
   const handleEmailChange = (e) => {
