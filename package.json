@@ -15,7 +15,7 @@
     "axios": "^1.5.1",
     "devextreme": "23.1.5",
     "devextreme-react": "23.1.5",
-    "react": "^18.0.2",
+    "react": "^17.0.2",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-images-viewer": "^1.7.1",
