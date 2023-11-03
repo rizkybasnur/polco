@@ -10,8 +10,9 @@ import Table from "../common/Table";
 import React from "react";
 import DialogAcak from "./DialogAcak";
 import CloseIcon from "@mui/icons-material/Close";
-import PrintIcon from "@mui/icons-material/Print";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
+import Pdf from '../common/PdfExample'
+
 function DialogRt({ open, onClose }) {
   // eslint-disable-next-line
   const [data, setData] = React.useState([
@@ -105,14 +106,8 @@ function DialogRt({ open, onClose }) {
         </Paper>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Button
-          variant="contained"
-          onClick={onClose}
-          color="primary"
-          style={{ borderRadius: 50 }}
-        >
-          <PrintIcon style={{ marginRight: 4 }} /> Print
-        </Button>
+      <Pdf/>
+
         <Button
           variant="contained"
           onClick={() => {

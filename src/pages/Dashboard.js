@@ -12,7 +12,6 @@ import Orders from "../components/Orders";
 import Deposits from "../components/Deposits";
 import DataMasukPerWilayah from "../components/DataMasukPerWilayah";
 import Filter from "../components/common/Filter";
-
 function Copyright(props) {
   return (
     <Typography
@@ -30,6 +29,77 @@ function Copyright(props) {
     </Typography>
   );
 }
+
+// const styles = StyleSheet.create({
+//   page: {
+//     flexDirection: 'row',
+//     backgroundColor: 'white',
+//   },
+//   section: {
+//     margin: 10,
+//     padding: 10,
+//     flexGrow: 1,
+//   },
+//   table: {
+//     display: 'table',
+//     width: 'auto',
+//     borderStyle: 'solid',
+//     borderWidth: 1,
+//     borderColor: '#bfbfbf',
+//     marginLeft: 10,
+//   },
+//   tableRow: {
+//     flexDirection: 'row',
+//   },
+//   tableCell: {
+//     margin: 5,
+//     padding: 5,
+//     borderBottomWidth: 1,
+//     borderBottomColor: '#bfbfbf',
+//   },
+// });
+
+// const tableData = [
+//   { name: 'John', age: 30, city: 'New York' },
+//   { name: 'Alice', age: 25, city: 'Los Angeles' },
+//   { name: 'Bob', age: 40, city: 'Chicago' },
+// ];
+
+// const MyDocument = () => (
+//   <Document>
+//     <Page size="A4" style={styles.page}>
+//       <View style={styles.section}>
+//         <Text>Table Example</Text>
+//         <View style={styles.table}>
+//           <View style={styles.tableRow}>
+//             <View style={styles.tableCell}>
+//               <Text>Name</Text>
+//             </View>
+//             <View style={styles.tableCell}>
+//               <Text>Age</Text>
+//             </View>
+//             <View style={styles.tableCell}>
+//               <Text>City</Text>
+//             </View>
+//           </View>
+//           {tableData.map((row, index) => (
+//             <View style={styles.tableRow} key={index}>
+//               <View style={styles.tableCell}>
+//                 <Text>{row.name}</Text>
+//               </View>
+//               <View style={styles.tableCell}>
+//                 <Text>{row.age}</Text>
+//               </View>
+//               <View style={styles.tableCell}>
+//                 <Text>{row.city}</Text>
+//               </View>
+//             </View>
+//           ))}
+//         </View>
+//       </View>
+//     </Page>
+//   </Document>
+// );
 
 export default function Tes() {
   // const [age, setAge] = React.useState("");
@@ -64,6 +134,7 @@ export default function Tes() {
   //     />
   //   );
   // }
+  
   return (
     <Box
       component="main"
@@ -171,6 +242,7 @@ export default function Tes() {
           </Grid>
         </Grid>
         <Copyright sx={{ pt: 4 }} />
+        {/* <PdfExample/> */}
       </Container>
     </Box>
   );

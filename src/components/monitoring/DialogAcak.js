@@ -9,7 +9,7 @@ import {
 import TableAngkaAcak from "../common/TableAngkaAcak";
 import TableManual from "../common/TableManual";
 import CloseIcon from "@mui/icons-material/Close";
-import PrintIcon from "@mui/icons-material/Print";
+import Pdf from '../common/PdfExample'
 
 function DialogAcak({ open, onClose }) {
   const handleClose = () => {
@@ -61,6 +61,7 @@ function DialogAcak({ open, onClose }) {
           "& .MuiPaper-root": {
             width: "100%",
             maxWidth: "1280px", // Set your width here
+            backgroundColor: "#241A0F",
           },
         },
       }}
@@ -85,14 +86,7 @@ function DialogAcak({ open, onClose }) {
       <DialogActions
         sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}
       >
-        <Button
-          variant="contained"
-          onClick={onClose}
-          color="primary"
-          style={{ borderRadius: 50 }}
-        >
-          <PrintIcon style={{ marginRight: 4 }} /> Print
-        </Button>
+       <Pdf/>
         <Button
           variant="contained"
           onClick={onClose}

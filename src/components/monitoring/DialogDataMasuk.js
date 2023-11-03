@@ -16,8 +16,8 @@ import Table from "../common/Table";
 // import refresh from "../../assets/refresh.svg";
 import TableManual from "../common/TableManual";
 import CloseIcon from "@mui/icons-material/Close";
-import PrintIcon from "@mui/icons-material/Print";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
+import Pdf from '../common/PdfExample'
 
 function DialogDataMasuk({ open, onClose }) {
   // eslint-disable-next-line
@@ -124,14 +124,8 @@ function DialogDataMasuk({ open, onClose }) {
         </Paper>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Button
-          variant="contained"
-          onClick={onClose}
-          color="primary"
-          style={{ borderRadius: 50 }}
-        >
-          <PrintIcon style={{ marginRight: 4 }} /> Pint
-        </Button>
+      <Pdf/>
+
         <Button
           variant="contained"
           // onClick={() => {

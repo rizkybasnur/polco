@@ -14,12 +14,12 @@ function TableManual({ title, data }) {
         style={{
           padding: 16,
           width: "100%",
-          borderTop: "0.5px #C8D3E9 solid",
-          borderLeft: "0.5px #C8D3E9 solid",
-          borderRight: "0.5px #C8D3E9 solid",
+          borderTop: "0.5px #694C2B solid",
+          borderLeft: "0.5px #694C2B solid",
+          borderRight: "0.5px #694C2B solid",
           borderRadius: "8px 8px 0px 0px",
-          backgroundColor: "#FCFAF8",
-          color: "#7D879B",
+          backgroundColor: "#48341E",
+          color: "#E1CDB7",
           fontFamily: "DM Sans",
           fontSize: "16px",
           fontWeight: 700,
@@ -35,7 +35,7 @@ function TableManual({ title, data }) {
         elevation={0}
         sx={{
           "& .MuiTableCell-root": {
-            border: "1px solid #C8D3E9",
+            border: "1px solid #694C2B",
           },
         }}
       >
@@ -48,8 +48,8 @@ function TableManual({ title, data }) {
                     key={col.id}
                     align="left"
                     sx={{
-                      backgroundColor: `${col.id === 1 ? "#F7F2EC" : ""}`,
-                      color: "#7D879B",
+                      backgroundColor: `${col.id === 1 ? "#362717" : ""}`,
+                      color: "#F0E6DB",
                       fontFamily: "DM Sans",
                       fontSize: 14,
                       fontWeight: 500,

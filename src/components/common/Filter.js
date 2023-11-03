@@ -12,7 +12,8 @@ import styled from "@emotion/styled";
 const StyledSelect = styled(Select)`
   border-color: red; // Change this to your desired border color
   &:focus {
-    border-color: green; // Change this to your desired focus border color
+    border-color: green; // Change this to your desired focus border color,
+    color:white;
   }
 `;
 
@@ -77,6 +78,7 @@ function Filter({ page }) {
           value={age}
           label="Pilih Wilayah"
           onChange={handleChange}
+          style={{color:'white'}}
         >
           <MenuItem value="">Pilih Wilayah</MenuItem>
           <MenuItem value={10}>Jawa Timur</MenuItem>
