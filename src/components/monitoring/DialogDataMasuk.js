@@ -17,7 +17,7 @@ import Table from "../common/Table";
 import TableManual from "../common/TableManual";
 import CloseIcon from "@mui/icons-material/Close";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import Pdf from '../common/PdfExample'
+import Pdf from "../common/PdfExample";
 
 function DialogDataMasuk({ open, onClose }) {
   // eslint-disable-next-line
@@ -111,7 +111,7 @@ function DialogDataMasuk({ open, onClose }) {
     >
       <DialogContent>
         <Paper elevation={0} sx={{ p: 0 }}>
-          <TableManual title="ganti rt terpilih" />
+          <TableManual title="DAFTAR RT" />
         </Paper>
         <Paper elevation={0} sx={{ p: 0, mt: 4 }}>
           <Table
@@ -124,7 +124,7 @@ function DialogDataMasuk({ open, onClose }) {
         </Paper>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-      <Pdf/>
+        <Pdf />
 
         <Button
           variant="contained"
@@ -132,7 +132,13 @@ function DialogDataMasuk({ open, onClose }) {
           //   setOpenAcak(true);
           // }}
           style={{ borderRadius: 50 }}
-          color="blue"
+          sx={{
+            backgroundColor: "#01A3F8",
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "#0285c9",
+            },
+          }}
         >
           <ShuffleIcon style={{ marginRight: 4 }} /> Angka Acak
         </Button>

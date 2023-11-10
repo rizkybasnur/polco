@@ -60,6 +60,14 @@
   color: #d1b28f;
 }
 
+.dx-datagrid-borders > .dx-datagrid-pager {
+  border-bottom: #48341e solid 2px;
+  border-left: #48341e solid 2px;
+  border-right: #48341e solid 2px;
+  color: #e1cdb7;
+  background-color: #241a0f;
+}
+
 .dx-searchbox .dx-icon-search {
   color: #d1b28f;
 }

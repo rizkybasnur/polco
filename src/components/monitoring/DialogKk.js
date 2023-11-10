@@ -15,11 +15,61 @@ import Chip from "./Chip";
 import refresh from "../../assets/refresh.svg";
 import TableManual from "../common/TableManual";
 import CloseIcon from "@mui/icons-material/Close";
+import api from "../../api/axios";
+import DialogDetailKk from "../../components/monitoring/DialogDetailKk";
 
-function DialogKk({ open, onClose }) {
+function DialogKk({ open, onClose, rt }) {
+  const [data, setData] = React.useState([]);
+  const [surveyor, setsurveyor] = React.useState([]);
+
   const handleClose = () => {
     onClose();
   };
+
+  const [dialogData, setDialogData] = React.useState([]);
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  const onCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const toggleDialog = (e) => {
+    setDialogData(e);
+    setOpenDialog(true);
+  };
+
+  React.useEffect(() => {
+    if (rt !== "") {
+      const fetchData = async () => {
+        try {
+          const response = await api.post(`/web/data_rt_by_event`, {
+            kode_event: rt,
+          });
+          const responseData = response.data.data;
+
+          // Mapping the surveyor data and assigning numbers
+          if (responseData.data_rt) {
+            const updateData = responseData.data_rt.map((item, index) => ({
+              ...item,
+              nomor: index + 1,
+            }));
+            setsurveyor(updateData);
+          }
+
+          // Setting the data received
+          if (responseData.suvetor) {
+            setData(responseData.suvetor);
+          }
+        } catch (error) {
+          console.log(error);
+          // Handle errors
+        }
+      };
+
+      fetchData(); // Trigger the data fetching
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Dialog
@@ -37,7 +87,7 @@ function DialogKk({ open, onClose }) {
     >
       <DialogContent>
         <Paper elevation={0} sx={{ p: 0 }}>
-          <TableManual title="ganti rt terpilih" />
+          <TableManual title="DAFTAR RT" data={data} />
         </Paper>
         <Paper elevation={0} sx={{ p: 0, mt: 4 }}>
           <div
@@ -74,111 +124,114 @@ function DialogKk({ open, onClose }) {
               aria-label="simple table"
             >
               <TableBody>
-                {/* {rows.map((row) => ( */}
-                <TableRow
-                //   key={row.name}
-                >
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color: "#F0E6DB",
-                      fontFamily: "DM Sans",
-                      fontSize: 14,
-                      fontWeight: 500,
-                      letterSpacing: "0em",
-                      textAlign: "left",
-                    }}
-                    style={{ padding: 12 }}
-                  >
-                    RW 2 RT 1
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color: "#F0E6DB",
-                      fontFamily: "DM Sans",
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: "0em",
-                      textAlign: "left",
-                    }}
-                    style={{ padding: 12 }}
-                  >
-                    <div style={{ display: "flex", gap: 8 }}>
-                      <Chip title="KK" color="blue-chip" />
-                      <Chip title="96" color="success" />
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color: "#7D879B",
-                      fontFamily: "DM Sans",
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: "0em",
-                      textAlign: "left",
-                    }}
-                    style={{ padding: 12 }}
-                  >
-                    <div style={{ display: "flex", gap: 8 }}>
-                      <Chip title="Responden Pertama" color="blue-chip" />{" "}
-                      <img src={refresh} alt="logo" />
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color: "#7D879B",
-                      fontFamily: "DM Sans",
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: "0em",
-                      textAlign: "left",
-                    }}
-                    style={{ padding: 12 }}
-                  >
-                    <div style={{ display: "flex", gap: 8 }}>
-                      <Chip title="Responden Pertama" color="blue-chip" />{" "}
-                      <img src={refresh} alt="logo" />
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color: "#7D879B",
-                      fontFamily: "DM Sans",
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: "0em",
-                      textAlign: "left",
-                    }}
-                    style={{ padding: 12 }}
-                  >
-                    <div style={{ display: "flex", gap: 8 }}>
-                      <Chip title="Responden Pertama" color="blue-chip" />{" "}
-                      <img src={refresh} alt="logo" />
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color: "#7D879B",
-                      fontFamily: "DM Sans",
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: "0em",
-                      textAlign: "left",
-                    }}
-                    style={{ padding: 12 }}
-                  >
-                    <div style={{ display: "flex", gap: 8 }}>
-                      <Chip title="Wawancara" color="blue-chip" />{" "}
-                      <img src={refresh} alt="logo" />
-                    </div>
-                  </TableCell>
-                </TableRow>
-                {/* ))} */}
+                {surveyor &&
+                  surveyor.map((item) => (
+                    <TableRow key={item?.name}>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          color: "#F0E6DB",
+                          fontFamily: "DM Sans",
+                          fontSize: 14,
+                          fontWeight: 500,
+                          letterSpacing: "0em",
+                          textAlign: "left",
+                        }}
+                        style={{ padding: 12 }}
+                      >
+                        {item?.name}
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          color: "#F0E6DB",
+                          fontFamily: "DM Sans",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          letterSpacing: "0em",
+                          textAlign: "left",
+                        }}
+                        style={{ padding: 12 }}
+                      >
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <Chip title="KK" color="blue-chip" />
+                          {
+                            <div onClick={() => toggleDialog(item)}>
+                              <Chip title={item?.kodeEvent} color="success" />
+                            </div>
+                          }
+                        </div>
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          color: "#7D879B",
+                          fontFamily: "DM Sans",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          letterSpacing: "0em",
+                          textAlign: "left",
+                        }}
+                        style={{ padding: 12 }}
+                      >
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <Chip title="Responden Pertama" color="blue-chip" />{" "}
+                          <img src={refresh} alt="logo" />
+                        </div>
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          color: "#7D879B",
+                          fontFamily: "DM Sans",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          letterSpacing: "0em",
+                          textAlign: "left",
+                        }}
+                        style={{ padding: 12 }}
+                      >
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <Chip title="Responden Pertama" color="blue-chip" />{" "}
+                          <img src={refresh} alt="logo" />
+                        </div>
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          color: "#7D879B",
+                          fontFamily: "DM Sans",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          letterSpacing: "0em",
+                          textAlign: "left",
+                        }}
+                        style={{ padding: 12 }}
+                      >
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <Chip title="Responden Pertama" color="blue-chip" />{" "}
+                          <img src={refresh} alt="logo" />
+                        </div>
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          color: "#7D879B",
+                          fontFamily: "DM Sans",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          letterSpacing: "0em",
+                          textAlign: "left",
+                        }}
+                        style={{ padding: 12 }}
+                      >
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <Chip title="Wawancara" color="blue-chip" />{" "}
+                          <img src={refresh} alt="logo" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -195,6 +248,13 @@ function DialogKk({ open, onClose }) {
           <CloseIcon style={{ marginRight: 4 }} /> Close
         </Button>
       </DialogActions>
+      {openDialog && (
+        <DialogDetailKk
+          open={openDialog}
+          onClose={onCloseDialog}
+          item={dialogData}
+        />
+      )}
     </Dialog>
   );
 }

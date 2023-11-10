@@ -1,5 +1,5 @@
 import { DataGrid } from "devextreme-react";
-import { Column, Paging, Scrolling, Sorting } from "devextreme-react/data-grid";
+import { Column, Pager, Paging, Sorting } from "devextreme-react/data-grid";
 import React, { useState } from "react";
 import Rute from "../../assets/Rute.svg";
 import ImgsViewer from "react-images-viewer";
@@ -13,6 +13,8 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
   const handleChange = (event) => {
     setPilihan(event.target.value);
   };
+
+  const allowedPageSizes = [5, 10, "all"];
 
   const onCellPrepared = (e) => {
     if (e.rowType === "data") {
@@ -95,7 +97,7 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
                   );
                 }
                 if (item.custom === "select") {
-                  if (data.value === "1") {
+                  if (data.value === "0") {
                     return (
                       <FormControl
                         fullWidth
@@ -185,8 +187,20 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
           />
         ))}
 
-        {paging && <Paging defaultPageSize={10} />}
-        {scrolling && <Scrolling mode="virtual" />}
+        {/* {paging && ( */}
+        {/* <div> */}
+        <Paging defaultPageSize={10} />
+        <Pager
+          visible={true}
+          allowedPageSizes={allowedPageSizes}
+          displayMode="full"
+          showPageSizeSelector={true}
+          showInfo={true}
+          showNavigationButtons={true}
+        />
+        {/* </div>
+        )} */}
+        {/* {scrolling && <Scrolling mode="virtual" />} */}
         {sorting && <Sorting mode="multiple" showSortIndexes={false} />}
       </DataGrid>
     </div>

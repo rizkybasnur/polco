@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 import Filter from "../components/common/Filter";
 import DataGrid, {
   Column,
+  Pager,
   Paging,
-  Scrolling,
   Sorting,
 } from "devextreme-react/data-grid";
 import ProgressBar from "../components/ProgressBar";
@@ -57,6 +57,8 @@ function Chip({ title }) {
 
 export default function Tes() {
   const [isDetail, setIsDetail] = React.useState();
+  const allowedPageSizes = [5, 10, "all"];
+
   // eslint-disable-next-line
   const [data, setData] = React.useState([
     {
@@ -80,6 +82,94 @@ export default function Tes() {
       target: "50",
       angka: "50",
       total: "50",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
+    },
+    {
+      nomor: "3",
+      provinsi: "Nancy Davolio",
+      kabupatenkota: "Gresik ",
+      kecamatan: "50",
+      kelurahanDesa: "50",
+      relawan: "50",
+      target: "50",
+      angka: "50",
+      total: "100",
     },
     {
       nomor: "3",
@@ -274,7 +364,14 @@ export default function Tes() {
                   />
                 </Column>
                 <Paging defaultPageSize={10} />
-                <Scrolling mode="virtual" />
+                <Pager
+                  visible={true}
+                  allowedPageSizes={allowedPageSizes}
+                  showPageSizeSelector={true}
+                  showInfo={true}
+                  showNavigationButtons={true}
+                />
+                {/* <Scrolling mode="virtual" /> */}
                 <Sorting mode="multiple" showSortIndexes={false} />
               </DataGrid>
             ) : (
@@ -352,7 +449,14 @@ export default function Tes() {
                   />
                 </Column>
                 <Paging defaultPageSize={10} />
-                <Scrolling mode="virtual" />
+                <Pager
+                  visible={true}
+                  allowedPageSizes={allowedPageSizes}
+                  showPageSizeSelector={true}
+                  showInfo={true}
+                  showNavigationButtons={true}
+                />
+                {/* <Scrolling mode="virtual" /> */}
                 <Sorting mode="multiple" showSortIndexes={false} />
               </DataGrid>
             )}

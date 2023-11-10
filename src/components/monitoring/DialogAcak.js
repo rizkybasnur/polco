@@ -7,50 +7,100 @@ import {
   Paper,
 } from "@mui/material";
 import TableAngkaAcak from "../common/TableAngkaAcak";
+import TableAngkaAcakKk from "../common/TableAngkaAcakKk";
 import TableManual from "../common/TableManual";
 import CloseIcon from "@mui/icons-material/Close";
-import Pdf from '../common/PdfExample'
+import Pdf from "../common/PdfExample";
+import api from "../../api/axios";
 
-function DialogAcak({ open, onClose }) {
+function DialogAcak({ open, onClose, kode }) {
   const handleClose = () => {
     onClose();
   };
 
-  const data = [
-    [
-      { value: "1", id: 1 },
-      { value: "2", id: 1 },
-      { value: "3", id: 3 },
-      { value: "1", id: 1 },
-      { value: "2", id: 1 },
-      { value: "3", id: 3 },
-      { value: "1", id: 2 },
-      { value: "2", id: 2 },
-      { value: "3", id: 3 },
-    ],
-    [
-      { value: "1", id: 1 },
-      { value: "2", id: 1 },
-      { value: "3", id: 3 },
-      { value: "1", id: 1 },
-      { value: "2", id: 1 },
-      { value: "3", id: 3 },
-      { value: "1", id: 2 },
-      { value: "2", id: 2 },
-      { value: "3", id: 3 },
-    ],
-    [
-      { value: "1", id: 1 },
-      { value: "2", id: 1 },
-      { value: "3", id: 3 },
-      { value: "1", id: 1 },
-      { value: "2", id: 1 },
-      { value: "3", id: 3 },
-      { value: "1", id: 2 },
-      { value: "2", id: 2 },
-      { value: "3", id: 3 },
-    ],
-  ];
+  // eslint-disable-next-line
+  const [rt, setRt] = React.useState();
+  // eslint-disable-next-line
+  const [kk, setKk] = React.useState();
+  // eslint-disable-next-line
+  const [surveyor, setSurveyor] = React.useState();
+
+  React.useEffect(() => {
+    if (kode !== "") {
+      const fetchData = async () => {
+        try {
+          const response = await api.post(`/web/angka_acak`, {
+            kode_event: kode,
+          });
+          const responseData = response.data.data;
+          console.log(responseData);
+          // Mapping the surveyor data and assigning numbers
+          // if (responseData.angka_rt) {
+          //   const updateData = responseData.angka_rt.map((item, index) => ({
+          //     ...item,
+          //     nomor: index + 1,
+          //   }));
+          //   setRt(updateData);
+          // }
+
+          if (responseData.angka_rt) {
+            setRt(responseData.angka_rt);
+          }
+
+          if (responseData.angka_kk) {
+            setKk(responseData.angka_kk);
+          }
+
+          // Setting the data received
+          if (responseData.suvetor) {
+            setSurveyor(responseData.suvetor);
+          }
+        } catch (error) {
+          console.log(error);
+          // Handle errors
+        }
+      };
+
+      fetchData(); // Trigger the data fetching
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  // const data = [
+  //   [
+  //     { value: "1", id: 1 },
+  //     { value: "2", id: 1 },
+  //     { value: "3", id: 3 },
+  //     { value: "1", id: 1 },
+  //     { value: "2", id: 1 },
+  //     { value: "3", id: 3 },
+  //     { value: "1", id: 2 },
+  //     { value: "2", id: 2 },
+  //     { value: "3", id: 3 },
+  //   ],
+  //   [
+  //     { value: "1", id: 1 },
+  //     { value: "2", id: 1 },
+  //     { value: "3", id: 3 },
+  //     { value: "1", id: 1 },
+  //     { value: "2", id: 1 },
+  //     { value: "3", id: 3 },
+  //     { value: "1", id: 2 },
+  //     { value: "2", id: 2 },
+  //     { value: "3", id: 3 },
+  //   ],
+  //   [
+  //     { value: "1", id: 1 },
+  //     { value: "2", id: 1 },
+  //     { value: "3", id: 3 },
+  //     { value: "1", id: 1 },
+  //     { value: "2", id: 1 },
+  //     { value: "3", id: 3 },
+  //     { value: "1", id: 2 },
+  //     { value: "2", id: 2 },
+  //     { value: "3", id: 3 },
+  //   ],
+  // ];
 
   return (
     <Dialog
@@ -68,25 +118,29 @@ function DialogAcak({ open, onClose }) {
     >
       <DialogContent>
         <Paper elevation={0} sx={{ p: 0 }}>
-          <TableManual title="ANGKA ACAK" />
+          {surveyor && <TableManual title="ANGKA ACAK" data={surveyor} />}
         </Paper>
         <Paper elevation={0} sx={{ p: 0, mt: 4 }}>
-          <TableAngkaAcak
-            title="LEMBAR ANGKA ACAK UNTUK MEMILIH RT"
-            data={data}
-          />
+          {rt && (
+            <TableAngkaAcak
+              title="LEMBAR ANGKA ACAK UNTUK MEMILIH RT"
+              data={rt}
+            />
+          )}
         </Paper>
         <Paper elevation={0} sx={{ p: 0, mt: 4 }}>
-          <TableAngkaAcak
-            title="LEMBAR ANGKA ACAK UNTUK MEMILIH KK"
-            data={data}
-          />
+          {kk && (
+            <TableAngkaAcakKk
+              title="LEMBAR ANGKA ACAK UNTUK MEMILIH KK"
+              data={kk}
+            />
+          )}
         </Paper>
       </DialogContent>
       <DialogActions
         sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}
       >
-       <Pdf/>
+        <Pdf />
         <Button
           variant="contained"
           onClick={onClose}

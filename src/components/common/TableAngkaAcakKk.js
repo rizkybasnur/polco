@@ -41,12 +41,27 @@ function TableManual({ title, data }) {
       >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableBody>
-            {/* {data.map((row) => ( */}
-            <TableRow>
-              <TableRow>
-                {data.map((col) => (
+            {data.map((row) => (
+              <TableRow key={row.label}>
+                <TableCell
+                  key={row.label}
+                  align="left"
+                  sx={{
+                    backgroundColor: "",
+                    color: "#F0E6DB",
+                    fontFamily: "DM Sans",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    letterSpacing: "0em",
+                    textAlign: "left",
+                  }}
+                  style={{ padding: 12 }}
+                >
+                  <div>ANGKA TERPILIH KE-({row.label})</div>
+                </TableCell>
+                {row.angka.map((col) => (
                   <TableCell
-                    key={col.angka}
+                    key={col.isTerpilih}
                     align="left"
                     sx={{
                       backgroundColor: `${
@@ -61,13 +76,11 @@ function TableManual({ title, data }) {
                     }}
                     style={{ padding: 12 }}
                   >
-                    <div>{col.angka}</div>{" "}
-                    {/* Rendering a specific property here */}
+                    <div>{col.angka}</div>
                   </TableCell>
                 ))}
               </TableRow>
-            </TableRow>
-            {/* ))} */}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

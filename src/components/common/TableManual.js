@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-function TableManual({ title }) {
+function TableManual({ title, data }) {
   return (
     <div>
       <div
@@ -69,7 +69,203 @@ function TableManual({ title }) {
                   textAlign: "left",
                 }}
               >
-                JAWA TIMUR
+                {data?.provinces}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Kabupaten / Kota
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.kabupaten}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Kecamatan
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.kecamatan}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Kelurahan / Desa
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.kelurahan}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Nama Surveyor
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.nama}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Handphone
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.no_telp}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Google Maps
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.provinces}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                Foto
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{
+                  color: "#F0E6DB",
+                  fontFamily: "DM Sans",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              >
+                {data?.provinces}
               </TableCell>
             </TableRow>
           </TableBody>

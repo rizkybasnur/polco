@@ -10,25 +10,28 @@ import Table from "../common/Table";
 import React from "react";
 import DialogAcak from "./DialogAcak";
 import CloseIcon from "@mui/icons-material/Close";
-import ShuffleIcon from "@mui/icons-material/Shuffle";
-import Pdf from "../common/PdfExample";
 import api from "../../api/axios";
 
-function DialogRt({ open, onClose, rt }) {
+function DialogRt({ open, onClose, item }) {
   // eslint-disable-next-line
   const [data, setData] = React.useState();
   const [surveyor, setsurveyor] = React.useState();
 
   React.useEffect(() => {
-    if (rt !== "") {
+    if (item) {
+      console.log(item);
       const fetchData = async () => {
         try {
-          const response = await api.post(`/web/data_rt`, { kode_event: rt });
+          const response = await api.post(`/web/data_kk_by_rt`, {
+            kode_event: item.kodeEvent,
+            idRt: item.idRt,
+            idRw: item.idRw,
+          });
           const responseData = response.data.data;
 
           // Mapping the surveyor data and assigning numbers
-          if (responseData.data_rt) {
-            const updateData = responseData.data_rt.map((item, index) => ({
+          if (responseData.data_kk) {
+            const updateData = responseData.data_kk.map((item, index) => ({
               ...item,
               nomor: index + 1,
             }));
@@ -36,8 +39,8 @@ function DialogRt({ open, onClose, rt }) {
           }
 
           // Setting the data received
-          if (responseData.suveyor) {
-            setData(responseData.suveyor);
+          if (responseData.suvetor) {
+            setData(responseData.suvetor);
           }
         } catch (error) {
           console.log(error);
@@ -57,25 +60,24 @@ function DialogRt({ open, onClose, rt }) {
       width: 100,
     },
     {
-      caption: "rw",
-      dataField: "id_rw",
+      caption: "nama",
+      dataField: "nama",
       width: 100,
     },
     {
-      caption: "rt",
-      dataField: "id_rt",
+      caption: "terpilih",
+      dataField: "isTerpilih",
       width: 100,
+    },
+    {
+      caption: "kk terpilih",
+      dataField: "isTerpilih",
+      width: 210,
     },
     {
       caption: "keterangan",
       dataField: "keterangan",
       width: 210,
-    },
-    {
-      caption: "ganti rt terpilih",
-      dataField: "isTerpilih",
-      width: 210,
-      custom: "select",
     },
   ];
 
@@ -87,10 +89,6 @@ function DialogRt({ open, onClose, rt }) {
 
   const onCloseAcak = () => {
     setOpenAcak(false);
-  };
-
-  const toggleDialogAcak = () => {
-    setOpenAcak(true);
   };
   return (
     <Dialog
@@ -108,7 +106,7 @@ function DialogRt({ open, onClose, rt }) {
     >
       <DialogContent>
         <Paper elevation={0} sx={{ p: 0 }}>
-          <TableManual title="DAFTAR RT" data={data} />
+          <TableManual title="DAFTAR KK" data={data} />
         </Paper>
         <Paper elevation={0} sx={{ p: 0, mt: 4, width: "100%" }}>
           <Table
@@ -121,25 +119,18 @@ function DialogRt({ open, onClose, rt }) {
         </Paper>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Pdf />
+        {/* <Pdf /> */}
 
-        <Button
+        {/* <Button
           variant="contained"
           onClick={() => {
-            toggleDialogAcak();
+            setOpenAcak(true);
           }}
-          // color="blue"
+          color="blue"
           style={{ borderRadius: 50 }}
-          sx={{
-            backgroundColor: "#01A3F8",
-            color: "#fff",
-            "&:hover": {
-              backgroundColor: "#0285c9",
-            },
-          }}
         >
           <ShuffleIcon style={{ marginRight: 4 }} /> Angka Acak
-        </Button>
+        </Button> */}
 
         <Button
           variant="contained"
@@ -150,9 +141,7 @@ function DialogRt({ open, onClose, rt }) {
           <CloseIcon style={{ marginRight: 4 }} /> Close
         </Button>
       </DialogActions>
-      {openAcak && (
-        <DialogAcak open={openAcak} onClose={onCloseAcak} kode={rt} />
-      )}
+      <DialogAcak open={openAcak} onClose={onCloseAcak} />
     </Dialog>
   );
 }

@@ -15,6 +15,7 @@ import {
 } from "devextreme-react/data-grid";
 import DialogRt from "../components/monitoring/DialogRt";
 import DialogMap from "../components/monitoring/DialogMap";
+import api from "../api/axios";
 
 function Copyright(props) {
   return (
@@ -36,38 +37,20 @@ function Copyright(props) {
 
 export default function Tes() {
   // eslint-disable-next-line
-  const [data, setData] = React.useState([
-    {
-      nomor: "2",
-      nama: "Sales Representative",
-      handphone: "50",
-      rute: "50",
-      daftarRt: "1",
-      kk: "2",
-      dataMasuk: "50",
-    },
-    {
-      nomor: "2",
-      nama: "Sales Representative",
-      handphone: "50",
-      rute: "50",
-      daftarRt: "2",
-      kk: "1",
-      dataMasuk: "50",
-    },
-    {
-      nomor: "2",
-      nama: "Sales Representative",
-      handphone: "50",
-      rute: "50",
-      daftarRt: "3",
-      kk: "2",
-      dataMasuk: "50",
-    },
-  ]);
-
+  const [data, setData] = React.useState();
   // eslint-disable-next-line
   const [gridInstance, setGridInstance] = React.useState(null);
+  React.useEffect(() => {
+    api
+      .get(`/web/monitoring`)
+      .then((res) => {
+        setData(res.data.data)
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle errors
+      });
+  }, []);
 
   React.useEffect(() => {
     if (gridInstance) {
@@ -92,9 +75,15 @@ export default function Tes() {
     );
   };
 
+  // eslint-disable-next-line
+  const [rt, setrt] = React.useState('');
   const rtCell = (e) => {
+    const toggleRt = ()=>{
+      setrt(e.data.kodeEvent)
+      setOpenRt(true)
+    }
     return (
-      <div onClick={setOpenRt}>
+      <div onClick={toggleRt}>
         {e.value === "1" ? (
           <Chip id="1" title="Completed" />
         ) : (
@@ -105,8 +94,12 @@ export default function Tes() {
   };
 
   const kkCell = (e) => {
+    const toggleKk = ()=>{
+      setrt(e.data.kodeEvent)
+      setOpenKk(true)
+    }
     return (
-      <div onClick={setOpenKk}>
+      <div onClick={toggleKk}>
         {e.value === "1" ? (
           <Chip id="1" title="Completed" />
         ) : (
@@ -199,7 +192,7 @@ export default function Tes() {
               <Column
                 sortOrder="asc"
                 caption="Handphone"
-                dataField="handphone"
+                dataField="no_telp"
                 cssClass="table-center"
               />
               <Column
@@ -239,9 +232,9 @@ export default function Tes() {
           </Grid>
         </Grid>
         <DialogMap open={openMap} onClose={onCloseMap} />
-        <DialogKk open={openKk} onClose={onCloseKk} />
-        <DialogDataMasuk open={openDataMasuk} onClose={onCloseDataMasuk} />
-        <DialogRt open={openRt} onClose={onCloseRt} />
+        <DialogDataMasuk open={openDataMasuk} onClose={onCloseDataMasuk} rt={rt} />
+        {openKk && <DialogKk open={openKk} onClose={onCloseKk}  rt={rt}/>}
+        {openRt && <DialogRt open={openRt} onClose={onCloseRt} rt={rt} />}
         <Copyright sx={{ pt: 4 }} />
       </Container>
     </Box>
