@@ -121,6 +121,7 @@ function ResponsiveDrawer(props) {
     }
     setOpen(!open);
   };
+  // eslint-disable-next-line
   const { isLoggedIn, username, login, logout } = React.useContext(UserContext);
 
   const openUser = Boolean(anchorEl);
