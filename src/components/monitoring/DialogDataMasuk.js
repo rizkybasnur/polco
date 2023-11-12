@@ -17,12 +17,22 @@ import Table from "../common/Table";
 import TableBa from "../common/TableBa";
 import CloseIcon from "@mui/icons-material/Close";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import Pdf from "../common/PdfExample";
+import Pdf from "../common/PdfDataKelurahan";
 import api from "../../api/axios";
+import DialogAcak from "./DialogAcak";
 
 function DialogDataMasuk({ open, onClose, rt }) {
   const [data, setData] = React.useState([]);
   const [surveyor, setsurveyor] = React.useState([]);
+  const [openAcak, setOpenAcak] = React.useState(false);
+
+  const onCloseAcak = () => {
+    setOpenAcak(false);
+  };
+
+  const toggleDialogAcak = () => {
+    setOpenAcak(true);
+  };
 
   React.useEffect(() => {
     if (rt !== "") {
@@ -55,93 +65,53 @@ function DialogDataMasuk({ open, onClose, rt }) {
     }
     // eslint-disable-next-line
   }, []);
-  // eslint-disable-next-line
-  // const [dataGeo, setDataGeo] = React.useState([
-  //   {
-  //     no: "1",
-  //     terpilih: "1",
-  //     rtRw: "1",
-  //     kkPengganti: "1",
-  //     respondenAsli: "1",
-  //     qcHasilWawancara: "1",
-  //     verifikasi: "1",
-  //   },
-  //   {
-  //     no: "1",
-  //     terpilih: "1",
-  //     rtRw: "1",
-  //     kkPengganti: "1",
-  //     respondenAsli: "1",
-  //     qcHasilWawancara: "1",
-  //     verifikasi: "1",
-  //   },
-  //   {
-  //     no: "1",
-  //     terpilih: "1",
-  //     rtRw: "1",
-  //     kkPengganti: "1",
-  //     respondenAsli: "1",
-  //     qcHasilWawancara: "1",
-  //     verifikasi: "1",
-  //   },
-  // ]);
 
   const columnGeo = [
     {
       caption: "No",
-      dataField: "no",
-      width: "auto",
+      dataField: "nomor",
     },
     {
       caption: "Terpilih",
       dataField: "terpilih",
-      width: 215,
     },
     {
       caption: "RT/RW",
       dataField: "rtRw",
-      width: 215,
+      custom: "rtrw",
     },
     {
       caption: "Jumlah KK",
       dataField: "jumlahKk",
-      width: 215,
     },
     {
       caption: "KK Terpilih",
       dataField: "kkTerpilih",
-      width: 215,
     },
     {
       caption: "KK Pengganti",
       dataField: "kkPengganti",
-      width: 215,
     },
     {
       caption: "Responden Asli",
       dataField: "respondedAsli",
-      width: 215,
     },
     {
       caption: "Responden Pengganti",
       dataField: "respondedGanti",
-      width: 215,
     },
     {
       caption: "alasan pergantian kk",
       dataField: "alasanGanti",
-      width: 215,
     },
     {
       caption: "QC Hasil Wawancara",
       dataField: "qcHasilWawancara",
-      width: 215,
       custom: "qc",
     },
     {
       caption: "Verifikasi",
       dataField: "verifikasi",
-      width: 215,
       custom: "doneNot",
     },
   ];
@@ -179,13 +149,13 @@ function DialogDataMasuk({ open, onClose, rt }) {
         </Paper>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Pdf />
+        {data && surveyor && <Pdf data={data} surveyor={surveyor} />}
 
         <Button
           variant="contained"
-          // onClick={() => {
-          //   setOpenAcak(true);
-          // }}
+          onClick={() => {
+            toggleDialogAcak();
+          }}
           style={{ borderRadius: 50 }}
           sx={{
             backgroundColor: "#01A3F8",
@@ -207,6 +177,9 @@ function DialogDataMasuk({ open, onClose, rt }) {
           <CloseIcon style={{ marginRight: 4 }} /> Close
         </Button>
       </DialogActions>
+      {openAcak && (
+        <DialogAcak open={openAcak} onClose={onCloseAcak} kode={rt} />
+      )}
     </Dialog>
   );
 }

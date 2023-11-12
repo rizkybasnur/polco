@@ -4,33 +4,33 @@ import {
   Grid,
   Paper,
   Toolbar,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import * as React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Orders from "../components/Orders";
 import Deposits from "../components/Deposits";
 import DataMasukPerWilayah from "../components/DataMasukPerWilayah";
 import Filter from "../components/common/Filter";
 import api from "../api/axios";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 export default function Tes() {
   // eslint-disable-next-line
@@ -160,7 +160,7 @@ export default function Tes() {
             </Paper>
           </Grid>
         </Grid>
-        <Copyright sx={{ pt: 4 }} />
+        {/* <Copyright sx={{ pt: 4 }} /> */}
         {/* <PdfExample/> */}
       </Container>
     </Box>

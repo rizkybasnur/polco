@@ -7,6 +7,7 @@ import Monitoring from "./pages/Monitoring";
 import PerRelawan from "./pages/PerRelawan";
 import PerWilayah from "./pages/PerWilayah";
 import PerHari from "./pages/PerHari";
+import QcData from "./pages/QcData";
 import NotFound from "./pages/NotFound";
 import "devextreme/dist/css/dx.light.css";
 import { UserProvider, UserContext } from "./context/UserContext";
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/per-relawan" element={<PerRelawan />} />
             <Route path="/per-wilayah" element={<PerWilayah />} />
             <Route path="/per-hari" element={<PerHari />} />
+            <Route path="/qc-data" element={<QcData />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

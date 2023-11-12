@@ -5,14 +5,31 @@ import Rute from "../../assets/Rute.svg";
 import ImgsViewer from "react-images-viewer";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Chip from "../monitoring/Chip";
-function Table({ datas, column, paging, scrolling, sorting, header, title }) {
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+
+function Table({
+  datas,
+  column,
+  paging,
+  scrolling,
+  sorting,
+  header,
+  title,
+  triggerButtonClick,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [currImg, setCurrImg] = useState(0);
   const [pilihan, setPilihan] = React.useState("");
 
+  // const handleClick = () => {
+  //   triggerButtonClick();
+  // };
   const handleChange = (event) => {
     setPilihan(event.target.value);
   };
+
+  const { saveProp } = React.useContext(UserContext);
 
   const allowedPageSizes = [5, 10, "all"];
 
@@ -28,6 +45,8 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
       e.cellElement.style.borderBottom = "none";
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <div style={{ width: "100%" }}>
@@ -165,11 +184,18 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
                   );
                 }
                 if (item.custom === "qc") {
+                  const handleClick = () => {
+                    saveProp(data.data);
+                    navigate("/qc-data");
+                  };
                   return (
-                    <div style={{ display: "flex", gap: 8 }}>
+                    <div
+                      onClick={handleClick}
+                      style={{ display: "flex", gap: 8 }}
+                    >
                       <Chip title="Cek Hasil Wawancara" color="blue-chip" />
-                      <Chip title={data.value} color="success" />
-                      <Chip title={data.value} color="danger" />
+                      {/* <Chip title={data.value} color="success" />
+                      <Chip title={data.value} color="danger" /> */}
                     </div>
                   );
                 }
@@ -181,8 +207,11 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
                     />
                   );
                 }
+                if (item.custom === "rtrw") {
+                  return <div>{data.data.idRt + "/" + data.data.idRw}</div>;
+                }
               }
-              return <span>{data.value}</span>;
+              return <span>{data.value ? data.value : "-"}</span>;
             }}
           />
         ))}

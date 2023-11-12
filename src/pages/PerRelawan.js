@@ -9,10 +9,8 @@ import {
   Grid,
   Paper,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import * as React from "react";
-import { Link } from "react-router-dom";
 import Filter from "../components/common/Filter";
 import { DataGrid } from "devextreme-react";
 import {
@@ -26,23 +24,23 @@ import ProgressBar from "../components/ProgressBar";
 import CloseIcon from "@mui/icons-material/Close";
 import api from "../api/axios";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 function Chip({ title }) {
   return (
@@ -260,7 +258,7 @@ export default function Tes() {
             </DataGrid>
           </Grid>
         </Grid>
-        <Copyright sx={{ pt: 4 }} />
+        {/* <Copyright sx={{ pt: 4 }} /> */}
       </Container>
 
       <Dialog

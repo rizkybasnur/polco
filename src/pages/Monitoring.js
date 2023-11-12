@@ -1,6 +1,5 @@
-import { Box, Container, Grid, Toolbar, Typography } from "@mui/material";
+import { Box, Container, Grid, Toolbar } from "@mui/material";
 import * as React from "react";
-import { Link } from "react-router-dom";
 import Filter from "../components/common/Filter";
 import Chip from "../components/common/Chip";
 import DialogKk from "../components/monitoring/DialogKk";
@@ -17,23 +16,23 @@ import DialogRt from "../components/monitoring/DialogRt";
 import DialogMap from "../components/monitoring/DialogMap";
 import api from "../api/axios";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 export default function Tes() {
   // eslint-disable-next-line
@@ -250,7 +249,7 @@ export default function Tes() {
         )}
         {openKk && <DialogKk open={openKk} onClose={onCloseKk} rt={rt} />}
         {openRt && <DialogRt open={openRt} onClose={onCloseRt} rt={rt} />}
-        <Copyright sx={{ pt: 4 }} />
+        {/* <Copyright sx={{ pt: 4 }} /> */}
       </Container>
     </Box>
   );

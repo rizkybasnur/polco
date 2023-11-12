@@ -1,6 +1,5 @@
-import { Box, Container, Grid, Toolbar, Typography } from "@mui/material";
+import { Box, Container, Grid, Toolbar } from "@mui/material";
 import * as React from "react";
-import { Link } from "react-router-dom";
 import Filter from "../components/common/Filter";
 import "devextreme/dist/css/dx.light.css";
 import ProgressBar from "../components/ProgressBar";
@@ -11,23 +10,23 @@ import {
   Scrolling,
   Sorting,
 } from "devextreme-react/data-grid";
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 export default function Tes() {
   // eslint-disable-next-line
@@ -195,7 +194,7 @@ export default function Tes() {
             </DataGrid>
           </Grid>
         </Grid>
-        <Copyright sx={{ pt: 4 }} />
+        {/* <Copyright sx={{ pt: 4 }} /> */}
       </Container>
     </Box>
   );

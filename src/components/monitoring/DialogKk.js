@@ -209,23 +209,6 @@ function DialogKk({ open, onClose, rt }) {
                         style={{ padding: 12 }}
                       >
                         <div style={{ display: "flex", gap: 8 }}>
-                          <Chip title="Responden Pertama" color="blue-chip" />{" "}
-                          <img src={refresh} alt="logo" />
-                        </div>
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{
-                          color: "#7D879B",
-                          fontFamily: "DM Sans",
-                          fontSize: 14,
-                          fontWeight: 400,
-                          letterSpacing: "0em",
-                          textAlign: "left",
-                        }}
-                        style={{ padding: 12 }}
-                      >
-                        <div style={{ display: "flex", gap: 8 }}>
                           <Chip title="Wawancara" color="blue-chip" />{" "}
                           <img src={refresh} alt="logo" />
                         </div>

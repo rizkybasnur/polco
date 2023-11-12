@@ -10,7 +10,7 @@ import TableAngkaAcak from "../common/TableAngkaAcak";
 import TableAngkaAcakKk from "../common/TableAngkaAcakKk";
 import TableManual from "../common/TableManual";
 import CloseIcon from "@mui/icons-material/Close";
-import Pdf from "../common/PdfExample";
+import Pdf from "../common/PdfAngkaAcak";
 import api from "../../api/axios";
 
 function DialogAcak({ open, onClose, kode }) {
@@ -33,15 +33,6 @@ function DialogAcak({ open, onClose, kode }) {
             kode_event: kode,
           });
           const responseData = response.data.data;
-          console.log(responseData);
-          // Mapping the surveyor data and assigning numbers
-          // if (responseData.angka_rt) {
-          //   const updateData = responseData.angka_rt.map((item, index) => ({
-          //     ...item,
-          //     nomor: index + 1,
-          //   }));
-          //   setRt(updateData);
-          // }
 
           if (responseData.angka_rt) {
             setRt(responseData.angka_rt);
@@ -65,42 +56,6 @@ function DialogAcak({ open, onClose, kode }) {
     }
     // eslint-disable-next-line
   }, []);
-
-  // const data = [
-  //   [
-  //     { value: "1", id: 1 },
-  //     { value: "2", id: 1 },
-  //     { value: "3", id: 3 },
-  //     { value: "1", id: 1 },
-  //     { value: "2", id: 1 },
-  //     { value: "3", id: 3 },
-  //     { value: "1", id: 2 },
-  //     { value: "2", id: 2 },
-  //     { value: "3", id: 3 },
-  //   ],
-  //   [
-  //     { value: "1", id: 1 },
-  //     { value: "2", id: 1 },
-  //     { value: "3", id: 3 },
-  //     { value: "1", id: 1 },
-  //     { value: "2", id: 1 },
-  //     { value: "3", id: 3 },
-  //     { value: "1", id: 2 },
-  //     { value: "2", id: 2 },
-  //     { value: "3", id: 3 },
-  //   ],
-  //   [
-  //     { value: "1", id: 1 },
-  //     { value: "2", id: 1 },
-  //     { value: "3", id: 3 },
-  //     { value: "1", id: 1 },
-  //     { value: "2", id: 1 },
-  //     { value: "3", id: 3 },
-  //     { value: "1", id: 2 },
-  //     { value: "2", id: 2 },
-  //     { value: "3", id: 3 },
-  //   ],
-  // ];
 
   return (
     <Dialog
@@ -140,7 +95,7 @@ function DialogAcak({ open, onClose, kode }) {
       <DialogActions
         sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}
       >
-        <Pdf />
+        <Pdf surveyor={surveyor} rt={rt} kk={kk} />
         <Button
           variant="contained"
           onClick={onClose}
