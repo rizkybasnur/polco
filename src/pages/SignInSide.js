@@ -71,6 +71,7 @@ export default function SignInSide() {
     setPassword(e.target.value);
   };
 
+  // eslint-disable-next-line
   const { isLoggedIn, username, login, logout } = React.useContext(UserContext);
 
   const handleSubmit = async (event) => {

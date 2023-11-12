@@ -14,6 +14,7 @@ import { UserProvider, UserContext } from "./context/UserContext";
 const App = () => {
   const navigate = useNavigate();
   const userContext = React.useContext(UserContext);
+  // eslint-disable-next-line
   const { isLoggedIn, logout } = userContext || {};
 
   React.useEffect(() => {
@@ -22,6 +23,7 @@ const App = () => {
       // logout();
       navigate("/login");
     }
+    // eslint-disable-next-line
   }, [isLoggedIn]);
 
   if (isLoggedIn) {
