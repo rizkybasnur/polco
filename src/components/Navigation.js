@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import ListItems from "./listItems";
 import logo from "../assets/logo.svg";
 import logoOnly from "../assets/logoOnly.svg";
+// import { UserContext } from "../context/UserContext";
+
 import {
   Avatar,
   Button,
@@ -26,10 +28,10 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import logout from "../assets/logout.svg";
+import logoutlogo from "../assets/logout.svg";
 import warning from "../assets/warning.svg";
 import { Outlet } from "react-router-dom";
-
+import { UserContext } from "../context/UserContext";
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -48,9 +50,16 @@ function ResponsiveDrawer(props) {
 
   const navigate = useNavigate();
   const onLogout = () => {
+    logout();
     navigate("/login");
     setIsDialogLogout(false);
   };
+
+  // React.useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate("/login");
+  //   }
+  // }, [isLoggedIn]);
 
   const onClose = () => {
     setIsDialogLogout(false);
@@ -112,6 +121,8 @@ function ResponsiveDrawer(props) {
     }
     setOpen(!open);
   };
+  const { isLoggedIn, username, login, logout } = React.useContext(UserContext);
+
   const openUser = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -183,7 +194,9 @@ function ResponsiveDrawer(props) {
                   sx={{ mr: 2, width: 40, height: 40 }}
                   src={logo}
                 ></Avatar>
-                <div style={{ marginRight: 4, color: "#F0E6DB" }}>Jone Aly</div>{" "}
+                <div style={{ marginRight: 4, color: "#F0E6DB" }}>
+                  {username.nama}
+                </div>{" "}
                 {anchorEl ? (
                   <ExpandLess style={{ color: "#F0E6DB" }} />
                 ) : (
@@ -262,7 +275,7 @@ function ResponsiveDrawer(props) {
                 sx={{ color: "#48341E", backgroundColor: "#29221D" }}
                 onClick={toggleLogout}
               >
-                <img src={logout} alt="logo" />
+                <img src={logoutlogo} alt="logo" />
                 <ListItemText
                   primary="Logout"
                   style={{ color: "#F8F3ED" }}
@@ -318,7 +331,7 @@ function ResponsiveDrawer(props) {
                 sx={{ color: "#48341E", backgroundColor: "#29221D" }}
                 onClick={toggleLogout}
               >
-                <img src={logout} alt="logo" />
+                <img src={logoutlogo} alt="logo" />
                 <ListItemText
                   primary="Logout"
                   style={{ color: "#F8F3ED" }}

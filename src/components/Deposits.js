@@ -8,7 +8,7 @@ import graph from "../assets/graph.svg";
 import users from "../assets/users.svg";
 import percentage from "../assets/percentage.svg";
 
-export default function Deposits({ title, isDonut, icon }) {
+export default function Deposits({ title, isDonut, icon, data, dataBar }) {
   const testData = [
     { title: "Provinsi", completed: 90 },
     { title: "Kabupaten/Kota", completed: 30 },
@@ -34,8 +34,8 @@ export default function Deposits({ title, isDonut, icon }) {
     return temp;
   };
 
-  const chartData = {
-    series: [44],
+  const [chartData, setChartData] = React.useState({
+    series: [0],
     options: {
       colors: [color()],
       chart: {
@@ -82,7 +82,16 @@ export default function Deposits({ title, isDonut, icon }) {
         },
       },
     },
-  };
+  });
+
+  React.useEffect(() => {
+    if (data) {
+      setChartData((prevData) => ({
+        ...prevData,
+        series: [data],
+      }));
+    }
+  }, [data]);
 
   return (
     <React.Fragment>

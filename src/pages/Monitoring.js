@@ -44,7 +44,7 @@ export default function Tes() {
     api
       .get(`/web/monitoring`)
       .then((res) => {
-        setData(res.data.data)
+        setData(res.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -60,28 +60,36 @@ export default function Tes() {
   }, [data]);
 
   const DiffCell = (e) => {
+    const toggleDataMasuk = () => {
+      setrt(e.data.kodeEvent);
+      setOpenDataMasuk(true);
+    };
     return (
-      <div onClick={setOpenDataMasuk}>
+      <div onClick={toggleDataMasuk}>
         <Chip id="1" title={e.value} />
       </div>
     );
   };
 
   const MapCell = (e) => {
+    const toggleMap = () => {
+      setrt(e.data.kodeEvent);
+      setOpenMap(true);
+    };
     return (
-      <div onClick={setOpenMap}>
+      <div onClick={toggleMap}>
         <Chip id="1" title="Maps" icon={true} />
       </div>
     );
   };
 
   // eslint-disable-next-line
-  const [rt, setrt] = React.useState('');
+  const [rt, setrt] = React.useState("");
   const rtCell = (e) => {
-    const toggleRt = ()=>{
-      setrt(e.data.kodeEvent)
-      setOpenRt(true)
-    }
+    const toggleRt = () => {
+      setrt(e.data.kodeEvent);
+      setOpenRt(true);
+    };
     return (
       <div onClick={toggleRt}>
         {e.value === "1" ? (
@@ -94,10 +102,10 @@ export default function Tes() {
   };
 
   const kkCell = (e) => {
-    const toggleKk = ()=>{
-      setrt(e.data.kodeEvent)
-      setOpenKk(true)
-    }
+    const toggleKk = () => {
+      setrt(e.data.kodeEvent);
+      setOpenKk(true);
+    };
     return (
       <div onClick={toggleKk}>
         {e.value === "1" ? (
@@ -231,9 +239,16 @@ export default function Tes() {
             </DataGrid>
           </Grid>
         </Grid>
-        <DialogMap open={openMap} onClose={onCloseMap} />
-        <DialogDataMasuk open={openDataMasuk} onClose={onCloseDataMasuk} rt={rt} />
-        {openKk && <DialogKk open={openKk} onClose={onCloseKk}  rt={rt}/>}
+
+        {openMap && <DialogMap open={openMap} onClose={onCloseMap} rt={rt} />}
+        {openDataMasuk && (
+          <DialogDataMasuk
+            open={openDataMasuk}
+            onClose={onCloseDataMasuk}
+            rt={rt}
+          />
+        )}
+        {openKk && <DialogKk open={openKk} onClose={onCloseKk} rt={rt} />}
         {openRt && <DialogRt open={openRt} onClose={onCloseRt} rt={rt} />}
         <Copyright sx={{ pt: 4 }} />
       </Container>

@@ -8,13 +8,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import login from "../assets/login.svg";
+import loginlogo from "../assets/login.svg";
 import { Container, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 // import logoOnly from "../assets/logoOnly.svg";
 import logoOnly from "../assets/logoOnly.svg";
-import { Login } from "../api/Login";
-
+import api from "../api/axios";
 function Copyright(props) {
   return (
     <Typography
@@ -58,10 +58,39 @@ export default function SignInSide() {
     return regex.test(email);
   };
 
-  const handleSubmit = (event) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  // eslint-disable-next-line
+  const [error, setError] = React.useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const { isLoggedIn, username, login, logout } = React.useContext(UserContext);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    Login();
-    // if (validateEmail(email)) {
+    try {
+      const response = await api.post(`/web/login`, {
+        idPengguna: email,
+        password: password,
+      });
+      const responseData = response.data.data;
+      if (responseData) {
+        navigate("/dashboard");
+        // if (login) {
+        //   login(responseData);
+        // }
+        login(responseData);
+      }
+    } catch (error) {
+      console.log(error);
+    } // if (validateEmail(email)) {
     //   // const data = new FormData(event.currentTarget);
     //   console.log({
     //     email,
@@ -72,14 +101,6 @@ export default function SignInSide() {
     // } else {
     //   setError("Invalid email address");
     // }
-  };
-
-  const [email, setEmail] = React.useState("");
-  // eslint-disable-next-line
-  const [error, setError] = React.useState("");
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
   };
 
   return (
@@ -100,7 +121,7 @@ export default function SignInSide() {
                   t.palette.mode === "light" ? "#fcfaf8" : t.palette.grey[900],
               }}
             >
-              <img src={login} alt="logo" />
+              <img src={loginlogo} alt="logo" />
             </Grid>
           )}
           <Grid item xs={12} sm={8} md={4} component={Paper} elevation={0}>
@@ -151,6 +172,8 @@ export default function SignInSide() {
                   label="Password"
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={handlePasswordChange}
                   autoComplete="current-password"
                 />
                 <Button

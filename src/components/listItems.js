@@ -29,8 +29,8 @@ export default function MainListItems() {
           },
         }}
         component={Link}
-        to="/"
-        selected={location.pathname === "/"}
+        to="/dashboard"
+        selected={location.pathname === "/dashboard"}
       >
         <img src={chartPie} alt="logo" />
         <ListItemText

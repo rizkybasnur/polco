@@ -7,6 +7,7 @@ export const Login = () => {
     .post("https://dummyjson.com/auth/login", {
       username: "kminchelle",
       password: "0lelplR",
+      // ads,
     })
     .then((response) => {
       console.log(response);

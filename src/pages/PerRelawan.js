@@ -24,6 +24,7 @@ import {
 } from "devextreme-react/data-grid";
 import ProgressBar from "../components/ProgressBar";
 import CloseIcon from "@mui/icons-material/Close";
+import api from "../api/axios";
 
 function Copyright(props) {
   return (
@@ -65,41 +66,53 @@ function Chip({ title }) {
 
 export default function Tes() {
   // eslint-disable-next-line
-  const [data, setData] = React.useState([
-    {
-      nomor: "1",
-      user: "Nancy Davolio",
-      nama: "Sales Representative",
-      handphone: "50",
-      desa: "50",
-      target: "50",
-      hariIni: "50",
-      totalAngka: "50",
-      totalPersen: "50",
-    },
-    {
-      nomor: "2",
-      user: "Rubia",
-      nama: "Sales Representative",
-      handphone: "50",
-      desa: "50",
-      target: "50",
-      hariIni: "50",
-      totalAngka: "50",
-      totalPersen: "75",
-    },
-    {
-      nomor: "3",
-      user: "Sho",
-      nama: "Sales Representative",
-      handphone: "50",
-      desa: "50",
-      target: "50",
-      hariIni: "50",
-      totalAngka: "50",
-      totalPersen: "20",
-    },
-  ]);
+  const [data, setData] = React.useState();
+  React.useEffect(() => {
+    api
+      .get(`/web/relawan`)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle errors
+      });
+  }, []);
+  //   [
+  //   {
+  //     nomor: "1",
+  //     user: "Nancy Davolio",
+  //     nama: "Sales Representative",
+  //     handphone: "50",
+  //     desa: "50",
+  //     target: "50",
+  //     hariIni: "50",
+  //     totalAngka: "50",
+  //     totalPersen: "50",
+  //   },
+  //   {
+  //     nomor: "2",
+  //     user: "Rubia",
+  //     nama: "Sales Representative",
+  //     handphone: "50",
+  //     desa: "50",
+  //     target: "50",
+  //     hariIni: "50",
+  //     totalAngka: "50",
+  //     totalPersen: "75",
+  //   },
+  //   {
+  //     nomor: "3",
+  //     user: "Sho",
+  //     nama: "Sales Representative",
+  //     handphone: "50",
+  //     desa: "50",
+  //     target: "50",
+  //     hariIni: "50",
+  //     totalAngka: "50",
+  //     totalPersen: "20",
+  //   },
+  // ]);
 
   // eslint-disable-next-line
   const [gridInstance, setGridInstance] = React.useState(null);

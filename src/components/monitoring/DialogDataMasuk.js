@@ -14,42 +14,77 @@ import {
 // import Chip from "./Chip";
 import Table from "../common/Table";
 // import refresh from "../../assets/refresh.svg";
-import TableManual from "../common/TableManual";
+import TableBa from "../common/TableBa";
 import CloseIcon from "@mui/icons-material/Close";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import Pdf from "../common/PdfExample";
+import api from "../../api/axios";
 
-function DialogDataMasuk({ open, onClose }) {
+function DialogDataMasuk({ open, onClose, rt }) {
+  const [data, setData] = React.useState([]);
+  const [surveyor, setsurveyor] = React.useState([]);
+
+  React.useEffect(() => {
+    if (rt !== "") {
+      const fetchData = async () => {
+        try {
+          const response = await api.post(`/web/berita_acara`, {
+            kode_event: rt,
+          });
+          const responseData = response.data.data;
+
+          if (responseData.list_row) {
+            const updateData = responseData.list_row.map((item, index) => ({
+              ...item,
+              nomor: index + 1,
+            }));
+            setData(updateData);
+          }
+
+          // Setting the data received
+          if (responseData.suveyor) {
+            setsurveyor(responseData.suveyor);
+          }
+        } catch (error) {
+          console.log(error);
+          // Handle errors
+        }
+      };
+
+      fetchData(); // Trigger the data fetching
+    }
+    // eslint-disable-next-line
+  }, []);
   // eslint-disable-next-line
-  const [dataGeo, setDataGeo] = React.useState([
-    {
-      no: "1",
-      terpilih: "1",
-      rtRw: "1",
-      kkPengganti: "1",
-      respondenAsli: "1",
-      qcHasilWawancara: "1",
-      verifikasi: "1",
-    },
-    {
-      no: "1",
-      terpilih: "1",
-      rtRw: "1",
-      kkPengganti: "1",
-      respondenAsli: "1",
-      qcHasilWawancara: "1",
-      verifikasi: "1",
-    },
-    {
-      no: "1",
-      terpilih: "1",
-      rtRw: "1",
-      kkPengganti: "1",
-      respondenAsli: "1",
-      qcHasilWawancara: "1",
-      verifikasi: "1",
-    },
-  ]);
+  // const [dataGeo, setDataGeo] = React.useState([
+  //   {
+  //     no: "1",
+  //     terpilih: "1",
+  //     rtRw: "1",
+  //     kkPengganti: "1",
+  //     respondenAsli: "1",
+  //     qcHasilWawancara: "1",
+  //     verifikasi: "1",
+  //   },
+  //   {
+  //     no: "1",
+  //     terpilih: "1",
+  //     rtRw: "1",
+  //     kkPengganti: "1",
+  //     respondenAsli: "1",
+  //     qcHasilWawancara: "1",
+  //     verifikasi: "1",
+  //   },
+  //   {
+  //     no: "1",
+  //     terpilih: "1",
+  //     rtRw: "1",
+  //     kkPengganti: "1",
+  //     respondenAsli: "1",
+  //     qcHasilWawancara: "1",
+  //     verifikasi: "1",
+  //   },
+  // ]);
 
   const columnGeo = [
     {
@@ -68,13 +103,33 @@ function DialogDataMasuk({ open, onClose }) {
       width: 215,
     },
     {
+      caption: "Jumlah KK",
+      dataField: "jumlahKk",
+      width: 215,
+    },
+    {
+      caption: "KK Terpilih",
+      dataField: "kkTerpilih",
+      width: 215,
+    },
+    {
       caption: "KK Pengganti",
       dataField: "kkPengganti",
       width: 215,
     },
     {
       caption: "Responden Asli",
-      dataField: "respondenAsli",
+      dataField: "respondedAsli",
+      width: 215,
+    },
+    {
+      caption: "Responden Pengganti",
+      dataField: "respondedGanti",
+      width: 215,
+    },
+    {
+      caption: "alasan pergantian kk",
+      dataField: "alasanGanti",
       width: 215,
     },
     {
@@ -111,11 +166,11 @@ function DialogDataMasuk({ open, onClose }) {
     >
       <DialogContent>
         <Paper elevation={0} sx={{ p: 0 }}>
-          <TableManual title="DAFTAR RT" />
+          <TableBa title="BERITA ACARA KELURAHAN RT/RW" data={surveyor} />
         </Paper>
         <Paper elevation={0} sx={{ p: 0, mt: 4 }}>
           <Table
-            datas={dataGeo}
+            datas={data}
             column={columnGeo}
             paging={true}
             scrolling={true}

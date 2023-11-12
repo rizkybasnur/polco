@@ -17,6 +17,8 @@ import DataGrid, {
 } from "devextreme-react/data-grid";
 import ProgressBar from "../components/ProgressBar";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import api from "../api/axios";
+
 function Copyright(props) {
   return (
     <Typography
@@ -60,136 +62,29 @@ export default function Tes() {
   const allowedPageSizes = [5, 10, "all"];
 
   // eslint-disable-next-line
-  const [data, setData] = React.useState([
-    {
-      nomor: "1",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Surabaya ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "10",
-    },
-    {
-      nomor: "2",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Sidoarjo ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "50",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupatenkota: "Gresik ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "100",
-    },
-  ]);
+  const [data, setData] = React.useState();
+  React.useEffect(() => {
+    api
+      .get(`/web/wilayah`)
+      .then((res) => {
+        const updateData = res.data.data.map((item, index) => ({
+          ...item,
+          nomor: index + 1,
+        }));
+        setData(updateData);
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle errors
+      });
+  }, []);
 
   // eslint-disable-next-line
   const [dataDetail, setDataDetail] = React.useState([
     {
       nomor: "1",
       provinsi: "Nancy Davolio",
-      kabupatenkota: "Wiyung ",
+      kabupaten: "Wiyung ",
       kecamatan: "50",
       kelurahanDesa: "50",
       relawan: "50",
@@ -200,7 +95,7 @@ export default function Tes() {
     {
       nomor: "2",
       provinsi: "Nancy Davolio",
-      kabupatenkota: "Dupak ",
+      kabupaten: "Dupak ",
       kecamatan: "50",
       kelurahanDesa: "50",
       relawan: "50",
@@ -211,7 +106,7 @@ export default function Tes() {
     {
       nomor: "3",
       provinsi: "Nancy Davolio",
-      kabupatenkota: "Perak ",
+      kabupaten: "Perak ",
       kecamatan: "50",
       kelurahanDesa: "50",
       relawan: "50",
@@ -242,7 +137,7 @@ export default function Tes() {
           }
         }}
       >
-        <Chip id="1" title={e.value.toUpperCase()} />
+        <Chip id="1" title={e.value} />
       </div>
     );
   };
@@ -317,7 +212,7 @@ export default function Tes() {
                 <Column
                   sortOrder="asc"
                   caption="Kabupaten/Kota"
-                  dataField="kabupatenkota"
+                  dataField="kabupaten"
                   cssClass="table-center"
                   cellRender={DiffCell}
                 />
@@ -363,14 +258,18 @@ export default function Tes() {
                     cellRender={BarCell}
                   />
                 </Column>
-                <Paging defaultPageSize={10} />
-                <Pager
-                  visible={true}
-                  allowedPageSizes={allowedPageSizes}
-                  showPageSizeSelector={true}
-                  showInfo={true}
-                  showNavigationButtons={true}
-                />
+                {data && data.length > 5 && (
+                  <div>
+                    <Paging defaultPageSize={5} />
+                    <Pager
+                      visible={true}
+                      allowedPageSizes={allowedPageSizes}
+                      showPageSizeSelector={true}
+                      showInfo={true}
+                      showNavigationButtons={true}
+                    />
+                  </div>
+                )}
                 {/* <Scrolling mode="virtual" /> */}
                 <Sorting mode="multiple" showSortIndexes={false} />
               </DataGrid>
@@ -402,7 +301,7 @@ export default function Tes() {
                 <Column
                   sortOrder="asc"
                   caption="Kabupaten/Kota"
-                  dataField="kabupatenkota"
+                  dataField="kabupaten"
                   cssClass="table-center"
                   cellRender={DiffCell}
                 />

@@ -186,21 +186,19 @@ function Table({ datas, column, paging, scrolling, sorting, header, title }) {
             }}
           />
         ))}
-
-        {/* {paging && ( */}
-        {/* <div> */}
-        <Paging defaultPageSize={10} />
-        <Pager
-          visible={true}
-          allowedPageSizes={allowedPageSizes}
-          displayMode="full"
-          showPageSizeSelector={true}
-          showInfo={true}
-          showNavigationButtons={true}
-        />
-        {/* </div>
-        )} */}
-        {/* {scrolling && <Scrolling mode="virtual" />} */}
+        {datas && datas.length > 5 && (
+          <div>
+            <Paging defaultPageSize={5} />
+            <Pager
+              visible={true}
+              allowedPageSizes={allowedPageSizes}
+              displayMode="full"
+              showPageSizeSelector={true}
+              showInfo={true}
+              showNavigationButtons={true}
+            />
+          </div>
+        )}
         {sorting && <Sorting mode="multiple" showSortIndexes={false} />}
       </DataGrid>
     </div>

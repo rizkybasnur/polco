@@ -9,69 +9,10 @@ import {
 import Table from "../common/Table";
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import api from "../../api/axios";
 
-function DialogRt({ open, onClose }) {
-  // eslint-disable-next-line
-  const [dataGeo, setDataGeo] = React.useState([
-    {
-      provinsi: "1",
-      kabupatenKota: "1",
-      kecamatan: "1",
-      kelurahanDesa: "1",
-      namaSurveyor: "1",
-      handphone: "1",
-    },
-    {
-      provinsi: "2",
-      kabupatenKota: "1",
-      kecamatan: "1",
-      kelurahanDesa: "1",
-      namaSurveyor: "1",
-      handphone: "1",
-    },
-    {
-      provinsi: "3",
-      kabupatenKota: "1",
-      kecamatan: "1",
-      kelurahanDesa: "1",
-      namaSurveyor: "1",
-      handphone: "1",
-    },
-  ]);
-
-  const columnGeo = [
-    {
-      caption: "Provinsi",
-      dataField: "provinsi",
-      width: 215,
-    },
-    {
-      caption: "kabupaten/Kota",
-      dataField: "kabupatenKota",
-      width: 215,
-    },
-    {
-      caption: "kecamatan",
-      dataField: "kecamatan",
-      width: 215,
-    },
-    {
-      caption: "kelurahan/Desa",
-      dataField: "kelurahanDesa",
-      width: 215,
-    },
-    {
-      caption: "nama Surveyor",
-      dataField: "namaSurveyor",
-      width: 215,
-    },
-    {
-      caption: "handphone",
-      dataField: "handphone",
-      width: 215,
-    },
-  ];
-
+function DialogRt({ open, onClose, rt }) {
+  const [data, setData] = React.useState([]);
   // eslint-disable-next-line
   const [dataRtRw, setDataRtRw] = React.useState([
     {
@@ -100,7 +41,42 @@ function DialogRt({ open, onClose }) {
       ruteLink: "1",
     },
   ]);
-
+  // eslint-disable-next-line
+  const [dataKk, setDataKk] = React.useState([]);
+  // eslint-disable-next-line
+  const [dataKeluarga, setDataKeluarga] = React.useState([]);
+  const columnGeo = [
+    {
+      caption: "Provinsi",
+      dataField: "provinces",
+      width: 215,
+    },
+    {
+      caption: "kabupaten/Kota",
+      dataField: "kabupaten",
+      width: 215,
+    },
+    {
+      caption: "kecamatan",
+      dataField: "kecamatan",
+      width: 215,
+    },
+    {
+      caption: "kelurahan/Desa",
+      dataField: "kelurahan",
+      width: 215,
+    },
+    {
+      caption: "nama Surveyor",
+      dataField: "nama",
+      width: 215,
+    },
+    {
+      caption: "no_telp",
+      dataField: "no_telp",
+      width: 215,
+    },
+  ];
   const columnRtRw = [
     {
       caption: "latitude",
@@ -119,9 +95,9 @@ function DialogRt({ open, onClose }) {
     },
     {
       caption: "dokumentasi",
-      dataField: "dokumentasi",
+      dataField: "fotoDokumentasi",
       width: 250,
-      custom: "photo",
+      // custom: "photo",
     },
     {
       caption: "rute link",
@@ -130,44 +106,6 @@ function DialogRt({ open, onClose }) {
       custom: "rute",
     },
   ];
-
-  // eslint-disable-next-line
-  const [dataKk, setDataKk] = React.useState([
-    {
-      rt: "1",
-      rw: "1",
-      latitude: "1",
-      longitude: "1",
-      address: "1",
-      radius: "1",
-      dokumentasi:
-        "https://fastly.picsum.photos/id/568/200/300.jpg?hmac=vQmkZRQt1uS-LMo2VtIQ7fn08mmx8Fz3Yy3lql5wkzM",
-      rute: "1",
-    },
-    {
-      rt: "2",
-      rw: "1",
-      latitude: "1",
-      longitude: "1",
-      address: "1",
-      radius: "1",
-      dokumentasi:
-        "https://fastly.picsum.photos/id/469/200/300.jpg?hmac=XkjIV9jof2hkk4eUpQpbQVMBiSTfqdlJxIdlcIdEM6Q",
-      rute: "1",
-    },
-    {
-      rt: "3",
-      rw: "1",
-      latitude: "1",
-      longitude: "1",
-      address: "1",
-      radius: "1",
-      dokumentasi:
-        "https://fastly.picsum.photos/id/627/200/300.jpg?hmac=C6cEU431ILuZjftVFQ1RsBlFYS52ym9f2KZPSOfH-R4",
-      rute: "1",
-    },
-  ]);
-
   const columnKk = [
     {
       caption: "rt",
@@ -181,12 +119,12 @@ function DialogRt({ open, onClose }) {
 
     {
       caption: "latitude",
-      dataField: "latitude",
+      dataField: "startLat",
       width: 170,
     },
     {
       caption: "longitude",
-      dataField: "longitude",
+      dataField: "startLon",
       width: 170,
     },
     {
@@ -201,9 +139,9 @@ function DialogRt({ open, onClose }) {
     },
     {
       caption: "dokumentasi",
-      dataField: "dokumentasi",
+      dataField: "fotoDokumentasi",
       width: 170,
-      custom: "photo",
+      // custom: "photo",
     },
     {
       caption: "rute",
@@ -212,50 +150,6 @@ function DialogRt({ open, onClose }) {
       custom: "rute",
     },
   ];
-
-  // eslint-disable-next-line
-  const [dataKeluarga, setDataKeluarga] = React.useState([
-    {
-      nomor: "1",
-      rtTerpilih: "1",
-      rt: "1",
-      rw: "1",
-      kkTerpilih: "1",
-      status: "1",
-      kk: "1",
-      responden: "1",
-      fotoKeluarga: "1",
-      fotoWawancara: "1",
-      rute: "1",
-    },
-    {
-      nomor: "2",
-      rtTerpilih: "1",
-      rt: "1",
-      rw: "1",
-      kkTerpilih: "1",
-      status: "1",
-      kk: "1",
-      responden: "1",
-      fotoKeluarga: "1",
-      fotoWawancara: "1",
-      rute: "1",
-    },
-    {
-      nomor: "3",
-      rtTerpilih: "1",
-      rt: "1",
-      rw: "1",
-      kkTerpilih: "1",
-      status: "1",
-      kk: "1",
-      responden: "1",
-      fotoKeluarga: "1",
-      fotoWawancara: "1",
-      rute: "1",
-    },
-  ]);
-
   const columnKeluarga = [
     {
       caption: "no",
@@ -263,15 +157,15 @@ function DialogRt({ open, onClose }) {
     },
     {
       caption: "rt Terpilih",
-      dataField: "rtTerpilih",
+      dataField: "terpilih",
     },
     {
       caption: "rt",
-      dataField: "rt",
+      dataField: "idRt",
     },
     {
       caption: "rw",
-      dataField: "rw",
+      dataField: "idRw",
     },
     {
       caption: "kk Terpilih",
@@ -279,7 +173,7 @@ function DialogRt({ open, onClose }) {
     },
     {
       caption: "status",
-      dataField: "status",
+      dataField: "statusKk",
     },
     {
       caption: "kk",
@@ -291,7 +185,7 @@ function DialogRt({ open, onClose }) {
     },
     {
       caption: "foto Keluarga",
-      dataField: "fotoKeluarga",
+      dataField: "fotoKk",
     },
     {
       caption: "foto Wawancara",
@@ -303,6 +197,42 @@ function DialogRt({ open, onClose }) {
       custom: "rute",
     },
   ];
+
+  React.useEffect(() => {
+    if (rt !== "") {
+      const fetchData = async () => {
+        try {
+          const response = await api.post(`/web/geotaging`, {
+            kode_event: rt,
+          });
+          const responseData = response.data.data;
+
+          if (responseData.geotag) {
+            setData([responseData.geotag]);
+          }
+
+          if (responseData.list_kk) {
+            setDataKk(responseData.list_kk);
+          }
+
+          if (responseData?.list_wawancara) {
+            const updateData = responseData.list_wawancara.map(
+              (item, index) => ({
+                ...item,
+                nomor: index + 1,
+              })
+            );
+            setDataKeluarga(updateData);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchData();
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const handleClose = () => {
     onClose();
@@ -317,7 +247,7 @@ function DialogRt({ open, onClose }) {
           "& .MuiPaper-root": {
             width: "100%",
             maxWidth: "1550px",
-            backgroundColor: "#241A0F", // Set your width here
+            backgroundColor: "#241A0F",
           },
         },
       }}
@@ -326,7 +256,7 @@ function DialogRt({ open, onClose }) {
       <DialogContent>
         <Paper elevation={0} sx={{ p: 0, width: "100%" }}>
           <Table
-            datas={dataGeo}
+            datas={data}
             column={columnGeo}
             paging={true}
             scrolling={true}
