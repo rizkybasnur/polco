@@ -11,7 +11,7 @@ import React from "react";
 import DialogAcak from "./DialogAcak";
 import CloseIcon from "@mui/icons-material/Close";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import Pdf from "../common/PdfExample";
+// import Pdf from "../common/PdfExample";
 import api from "../../api/axios";
 
 function DialogRt({ open, onClose, rt }) {
@@ -71,12 +71,12 @@ function DialogRt({ open, onClose, rt }) {
       dataField: "keterangan",
       width: 210,
     },
-    {
-      caption: "ganti rt terpilih",
-      dataField: "isTerpilih",
-      width: 210,
-      custom: "select",
-    },
+    // {
+    //   caption: "ganti rt terpilih",
+    //   dataField: "isTerpilih",
+    //   width: 210,
+    //   custom: "select",
+    // },
   ];
 
   const handleClose = () => {
@@ -121,7 +121,7 @@ function DialogRt({ open, onClose, rt }) {
         </Paper>
       </DialogContent>
       <DialogActions sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Pdf />
+        {/* <Pdf /> */}
 
         <Button
           variant="contained"

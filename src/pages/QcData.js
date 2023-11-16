@@ -19,7 +19,7 @@ export default function Tes() {
         try {
           const response = await api.post(`/web/kuisioner`, {
             kode_event: propQc.kodeEvent,
-            kuisioner: "41",
+            no_kuisioner: propQc.noKuisioner,
           });
           const responseData = response.data.data;
 
@@ -40,10 +40,12 @@ export default function Tes() {
     {
       caption: "nomor",
       dataField: "no_jawab",
+      custom: "jawab",
     },
     {
       caption: "kuisioner",
       dataField: "no_kuisioner",
+      custom: "kuisioner",
     },
     {
       caption: "jawaban",

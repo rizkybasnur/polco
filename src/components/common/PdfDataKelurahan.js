@@ -15,7 +15,7 @@ function App({ surveyor, data }) {
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Nama Kegiatan</td>
-            <td style={{ width: "70%" }}>{surveyor?.provinces}</td>
+            <td style={{ width: "70%" }}>{surveyor?.kegiatan}</td>
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Nama Surveyor</td>
@@ -23,23 +23,23 @@ function App({ surveyor, data }) {
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Waktu Survey</td>
-            <td style={{ width: "70%" }}>{surveyor?.kecamatan}</td>
+            <td style={{ width: "70%" }}>{surveyor?.waktu}</td>
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Jumlah Responden</td>
-            <td style={{ width: "70%" }}>{surveyor?.kelurahan}</td>
+            <td style={{ width: "70%" }}>{surveyor?.totalResponden}</td>
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Asli</td>
-            <td style={{ width: "70%" }}>{surveyor?.asli}</td>
+            <td style={{ width: "70%" }}>{surveyor?.totalAsli}</td>
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Pengganti</td>
-            <td style={{ width: "70%" }}>{surveyor?.pengganti}</td>
+            <td style={{ width: "70%" }}>{surveyor?.totalGanti}</td>
           </tr>
           <tr>
             <td style={{ width: "30%" }}>Kelurahan / Desa</td>
-            <td style={{ width: "70%" }}>{surveyor?.kelurahan}</td>
+            <td style={{ width: "70%" }}>{surveyor?.desa}</td>
           </tr>
         </table>
         <table style={{ borderTop: "none" }}>

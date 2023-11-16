@@ -39,8 +39,8 @@ function DialogRt({ open, onClose, item }) {
           }
 
           // Setting the data received
-          if (responseData.suvetor) {
-            setData(responseData.suvetor);
+          if (responseData.suveyor) {
+            setData(responseData.suveyor);
           }
         } catch (error) {
           console.log(error);

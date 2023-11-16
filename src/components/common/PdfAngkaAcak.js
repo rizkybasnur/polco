@@ -43,25 +43,8 @@ function App({ surveyor, rt, kk }) {
             <th colSpan="100">LEMBAR ANGKA ACAK UNTUK MEMILIH RT</th>
           </tr>
           <tr>
-            {rt.map((col) => (
-              <td
-                style={{
-                  backgroundColor: col.isTerpilih === "1" ? "#30D5C8" : "",
-                }}
-              >
-                {col.angka}
-              </td>
-            ))}
-          </tr>
-        </table>
-        <table>
-          <tr>
-            <th colSpan="100">LEMBAR ANGKA ACAK UNTUK MEMILIH KK</th>
-          </tr>
-          {kk.map((row, i) => (
-            <tr>
-              <td style={{ width: "30%" }}>ANGKA TERPILIH KE-({i + 1})</td>
-              {rt.map((col) => (
+            {rt &&
+              rt.map((col) => (
                 <td
                   style={{
                     backgroundColor: col.isTerpilih === "1" ? "#30D5C8" : "",
@@ -70,8 +53,27 @@ function App({ surveyor, rt, kk }) {
                   {col.angka}
                 </td>
               ))}
-            </tr>
-          ))}
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colSpan="100">LEMBAR ANGKA ACAK UNTUK MEMILIH KK</th>
+          </tr>
+          {kk[0]?.angka?.length &&
+            kk.map((row, i) => (
+              <tr>
+                <td style={{ width: "30%" }}>ANGKA TERPILIH KE-({i + 1})</td>
+                {rt.map((col) => (
+                  <td
+                    style={{
+                      backgroundColor: col.isTerpilih === "1" ? "#30D5C8" : "",
+                    }}
+                  >
+                    {col.angka}
+                  </td>
+                ))}
+              </tr>
+            ))}
         </table>
       </div>
     );

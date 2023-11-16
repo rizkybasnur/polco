@@ -30,7 +30,7 @@ function TableManual({ title, data }) {
       >
         {title}
       </div>
-      {data.length ? (
+      {data.angka.length ? (
         <div style={{}}>
           <TableContainer
             component={Paper}
@@ -45,7 +45,22 @@ function TableManual({ title, data }) {
               <TableBody>
                 <TableRow>
                   <TableRow>
-                    {data.map((col) => (
+                    <TableCell
+                      align="left"
+                      sx={{
+                        backgroundColor: ``,
+                        color: "#F0E6DB",
+                        fontFamily: "DM Sans",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        letterSpacing: "0em",
+                        textAlign: "left",
+                      }}
+                      style={{ padding: 12, width: "150px" }}
+                    >
+                      <div>&Sigma; RT ({data.label})</div>
+                    </TableCell>
+                    {data.angka.map((col) => (
                       <TableCell
                         key={col.angka}
                         align="left"

@@ -8,6 +8,11 @@ import {
 } from "@mui/material";
 
 function TableManual({ title, data }) {
+  const toggleMap = (data) => {
+    const location = `${data?.latLang},${data?.latLong}`;
+    const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${location}`;
+    window.open(googleMapsLink, "_blank");
+  };
   return (
     <div>
       <div
@@ -236,8 +241,22 @@ function TableManual({ title, data }) {
                   letterSpacing: "0em",
                   textAlign: "left",
                 }}
+                onClick={() => {
+                  toggleMap(data);
+                }}
               >
-                {data?.provinces}
+                <span
+                  className="cursor-pointer"
+                  style={{
+                    color: "#175CD3",
+                    fontFamily: "DM Sans",
+                    fontSize: "14px",
+                    fontWeight: 500,
+                    letterSpacing: "0em",
+                  }}
+                >
+                  {data?.latLang + "," + data?.latLong}
+                </span>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -265,7 +284,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.provinces}
+                {data?.foto}
               </TableCell>
             </TableRow>
           </TableBody>

@@ -1,70 +1,33 @@
 import { Box, Container, Grid, Toolbar } from "@mui/material";
 import * as React from "react";
-import Filter from "../components/common/Filter";
+// import Filter from "../components/common/Filter";
 import "devextreme/dist/css/dx.light.css";
 import ProgressBar from "../components/ProgressBar";
 import {
   Column,
   DataGrid,
+  Pager,
   Paging,
-  Scrolling,
   Sorting,
 } from "devextreme-react/data-grid";
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
+import api from "../api/axios";
 
 export default function Tes() {
+  const allowedPageSizes = [5, 10, "all"];
+
   // eslint-disable-next-line
-  const [data, setData] = React.useState([
-    {
-      nomor: "1",
-      user: "Nancy Davolio",
-      nama: "Sales Representative",
-      handphone: "50",
-      desa: "50",
-      target: "50",
-      hariIni: "50",
-      totalAngka: "50",
-      totalPersen: "100",
-    },
-    {
-      nomor: "2",
-      user: "Rubia",
-      nama: "Sales Representative",
-      handphone: "50",
-      desa: "50",
-      target: "50",
-      hariIni: "50",
-      totalAngka: "50",
-      totalPersen: "100",
-    },
-    {
-      nomor: "3",
-      user: "Sho",
-      nama: "Sales Representative",
-      handphone: "50",
-      desa: "50",
-      target: "50",
-      hariIni: "50",
-      totalAngka: "50",
-      totalPersen: "100",
-    },
-  ]);
+  const [data, setData] = React.useState();
+  React.useEffect(() => {
+    api
+      .get(`/web/per_day`)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle errors
+      });
+  }, []);
 
   // eslint-disable-next-line
   const [gridInstance, setGridInstance] = React.useState(null);
@@ -89,13 +52,6 @@ export default function Tes() {
       e.cellElement.style.border = "1px solid #694C2B";
       e.cellElement.style.borderBottom = "none";
     }
-    // Tracks the `Amount` data field
-    // e.watch(function() {
-    //     return e.data.Amount;
-    // }, function() {
-    //     e.cellElement.style.color = e.data.Amount >= 10000 ? "green" : "red";
-    // })
-    // }
   };
   return (
     <Box
@@ -111,9 +67,9 @@ export default function Tes() {
       <Toolbar />
       <Container maxWidth="false" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Filter />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <DataGrid
               showBorders={true}
@@ -151,7 +107,7 @@ export default function Tes() {
                 sortOrder="asc"
                 width="auto"
                 caption="Handphone"
-                dataField="handphone"
+                dataField="no_telp"
                 cssClass="table-center"
               />
               <Column
@@ -172,7 +128,7 @@ export default function Tes() {
                   sortOrder="asc"
                   width={150}
                   caption="Hari Ini"
-                  dataField="hariIni"
+                  dataField="today"
                 />
                 <Column
                   sortOrder="asc"
@@ -188,8 +144,18 @@ export default function Tes() {
                   cellRender={BarCell}
                 />
               </Column>
-              <Paging defaultPageSize={10} />
-              <Scrolling mode="virtual" />
+              {data && data.length > 5 && (
+                <div>
+                  <Paging defaultPageSize={5} />
+                  <Pager
+                    visible={true}
+                    allowedPageSizes={allowedPageSizes}
+                    showPageSizeSelector={true}
+                    showInfo={true}
+                    showNavigationButtons={true}
+                  />
+                </div>
+              )}
               <Sorting mode="multiple" showSortIndexes={false} />
             </DataGrid>
           </Grid>

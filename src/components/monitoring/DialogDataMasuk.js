@@ -109,11 +109,11 @@ function DialogDataMasuk({ open, onClose, rt }) {
       dataField: "qcHasilWawancara",
       custom: "qc",
     },
-    {
-      caption: "Verifikasi",
-      dataField: "verifikasi",
-      custom: "doneNot",
-    },
+    // {
+    //   caption: "Verifikasi",
+    //   dataField: "verifikasi",
+    //   custom: "doneNot",
+    // },
   ];
 
   const handleClose = () => {

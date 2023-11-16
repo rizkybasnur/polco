@@ -14,33 +14,7 @@ import api from "../../api/axios";
 function DialogRt({ open, onClose, rt }) {
   const [data, setData] = React.useState([]);
   // eslint-disable-next-line
-  const [dataRtRw, setDataRtRw] = React.useState([
-    {
-      latitude: "1",
-      longitude: "1",
-      rute: "1",
-      dokumentasi:
-        "https://fastly.picsum.photos/id/568/200/300.jpg?hmac=vQmkZRQt1uS-LMo2VtIQ7fn08mmx8Fz3Yy3lql5wkzM",
-      ruteLink: "1",
-    },
-    {
-      latitude: "2",
-      longitude: "1",
-      rute: "1",
-      dokumentasi:
-        "https://fastly.picsum.photos/id/469/200/300.jpg?hmac=XkjIV9jof2hkk4eUpQpbQVMBiSTfqdlJxIdlcIdEM6Q",
-      ruteLink: "1",
-    },
-    {
-      latitude: "3",
-      longitude: "1",
-      rw: "1",
-      rute: "1",
-      dokumentasi:
-        "https://fastly.picsum.photos/id/627/200/300.jpg?hmac=C6cEU431ILuZjftVFQ1RsBlFYS52ym9f2KZPSOfH-R4",
-      ruteLink: "1",
-    },
-  ]);
+  const [dataRtRw, setDataRtRw] = React.useState([]);
   // eslint-disable-next-line
   const [dataKk, setDataKk] = React.useState([]);
   // eslint-disable-next-line
@@ -48,7 +22,7 @@ function DialogRt({ open, onClose, rt }) {
   const columnGeo = [
     {
       caption: "Provinsi",
-      dataField: "provinces",
+      dataField: "provinsi",
       width: 215,
     },
     {
@@ -72,7 +46,7 @@ function DialogRt({ open, onClose, rt }) {
       width: 215,
     },
     {
-      caption: "no_telp",
+      caption: "no telp",
       dataField: "no_telp",
       width: 215,
     },
@@ -80,24 +54,24 @@ function DialogRt({ open, onClose, rt }) {
   const columnRtRw = [
     {
       caption: "latitude",
-      dataField: "latitude",
+      dataField: "startLatitude",
       width: 250,
     },
     {
       caption: "longitude",
-      dataField: "longitude",
+      dataField: "startLongitude",
       width: 250,
     },
     {
       caption: "Rute dari Data RT ke Data KK",
-      dataField: "rute",
+      dataField: "startLatitude",
       width: 250,
     },
     {
       caption: "dokumentasi",
       dataField: "fotoDokumentasi",
       width: 250,
-      // custom: "photo",
+      custom: "photo",
     },
     {
       caption: "rute link",
@@ -120,11 +94,13 @@ function DialogRt({ open, onClose, rt }) {
     {
       caption: "latitude",
       dataField: "startLat",
+      custom: "lat",
       width: 170,
     },
     {
       caption: "longitude",
       dataField: "startLon",
+      custom: "long",
       width: 170,
     },
     {
@@ -141,7 +117,7 @@ function DialogRt({ open, onClose, rt }) {
       caption: "dokumentasi",
       dataField: "fotoDokumentasi",
       width: 170,
-      // custom: "photo",
+      custom: "photo",
     },
     {
       caption: "rute",
@@ -157,7 +133,7 @@ function DialogRt({ open, onClose, rt }) {
     },
     {
       caption: "rt Terpilih",
-      dataField: "terpilih",
+      dataField: "rtTerpilih",
     },
     {
       caption: "rt",
@@ -186,10 +162,12 @@ function DialogRt({ open, onClose, rt }) {
     {
       caption: "foto Keluarga",
       dataField: "fotoKk",
+      custom: "photo",
     },
     {
       caption: "foto Wawancara",
       dataField: "fotoWawancara",
+      custom: "photo",
     },
     {
       caption: "Rute dari Responden Ke Wawancara",
@@ -207,8 +185,12 @@ function DialogRt({ open, onClose, rt }) {
           });
           const responseData = response.data.data;
 
-          if (responseData.geotag) {
-            setData([responseData.geotag]);
+          if (responseData.geotag_foto) {
+            setData([responseData.geotag_foto]);
+          }
+
+          if (responseData.data_rw) {
+            setDataRtRw([responseData.data_rw]);
           }
 
           if (responseData.list_kk) {

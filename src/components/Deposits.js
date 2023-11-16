@@ -8,13 +8,13 @@ import graph from "../assets/graph.svg";
 import users from "../assets/users.svg";
 import percentage from "../assets/percentage.svg";
 
-export default function Deposits({ title, isDonut, icon, data, dataBar }) {
-  const testData = [
-    { title: "Provinsi", completed: 90 },
-    { title: "Kabupaten/Kota", completed: 30 },
-    { title: "Kecamatan", completed: 53 },
-    { title: "Kelurahan/Desa", completed: 53 },
-  ];
+export default function Deposits({ title, isDonut, icon, data, daerah }) {
+  // const testData = [
+  //   { title: "Provinsi", completed: 90 },
+  //   { title: "Kabupaten/Kota", completed: 30 },
+  //   { title: "Kecamatan", completed: 53 },
+  //   { title: "Kelurahan/Desa", completed: 53 },
+  // ];
   const tes = () => {
     let temp = "";
     if (icon === "graph")
@@ -146,27 +146,26 @@ export default function Deposits({ title, isDonut, icon, data, dataBar }) {
           }}
         >
           <div>
-            {testData.map((item, i) => (
-              <Paper
-                key={i}
-                elevation={0}
-                sx={{
-                  mb: 1,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "column",
-                  backgroundColor: "#29221D",
-                }}
-                className="bg-card"
-              >
-                <div style={{ textAlign: "left", color: "#F8F3ED" }}>idx</div>
-                <ProgressBar
+            {daerah &&
+              daerah.map((item, i) => (
+                <Paper
                   key={i}
-                  bgcolor={item.bgcolor}
-                  completed={item.completed}
-                />
-              </Paper>
-            ))}
+                  elevation={0}
+                  sx={{
+                    mb: 1,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "column",
+                    backgroundColor: "#29221D",
+                  }}
+                  className="bg-card"
+                >
+                  <div style={{ textAlign: "left", color: "#F8F3ED" }}>
+                    {item.label}
+                  </div>
+                  <ProgressBar key={i} completed={item.total} />
+                </Paper>
+              ))}
           </div>
         </div>
       )}

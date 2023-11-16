@@ -12,7 +12,7 @@ import { Container, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 // import logoOnly from "../assets/logoOnly.svg";
-import logoOnly from "../assets/logoOnly.svg";
+import logoOnly from "../assets/logo.svg";
 import api from "../api/axios";
 // function Copyright(props) {
 //   return (
@@ -138,10 +138,35 @@ export default function SignInSide() {
               {/* <img src={logoOnly} alt="logo" /> */}
               <img src={logoOnly} alt="logo" />
 
-              <Typography component="h1" variant="h5">
+              <Typography
+                component="h1"
+                variant="h5"
+                sx={{
+                  //styleName: Heading/H2/Bold;
+                  fontFamily: "DM Sans",
+                  fontSize: "32px",
+                  fontWeight: "700",
+                  lineHeight: "40px",
+                  letterSpacing: "0em",
+                  textAlign: "center",
+                }}
+              >
                 Log in to your account
               </Typography>
-              <Typography component="h1" variant="h6">
+              <Typography
+                component="h1"
+                variant="h6"
+                sx={{
+                  //styleName: Body 1/Regular;
+                  ffontFamily: "DM Sans",
+                  fontSize: "16px",
+                  fontWeight: "400",
+                  lineHeight: "20px",
+                  letterSpacing: "0em",
+                  textAlign: "center",
+                  marginTop: "12px",
+                }}
+              >
                 Silahkan masukan username dan password
               </Typography>
               <Box

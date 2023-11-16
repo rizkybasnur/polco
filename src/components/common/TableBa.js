@@ -69,7 +69,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.provinces}
+                {data?.kegiatan}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -125,7 +125,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.kecamatan}
+                {data?.waktu}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -153,7 +153,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.kelurahan}
+                {data?.totalResponden}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -181,7 +181,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.nama}
+                {data?.totalAsli}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -209,7 +209,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.no_telp}
+                {data?.totalGanti}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -237,7 +237,7 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.provinces}
+                {data?.desa}
               </TableCell>
             </TableRow>
           </TableBody>

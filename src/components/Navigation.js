@@ -17,7 +17,7 @@ import {
   Button,
   ListItemButton,
   ListItemText,
-  Popover,
+  // Popover,
   Dialog,
   DialogActions,
   DialogContent,
@@ -26,7 +26,7 @@ import {
   AppBar,
   Drawer,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+// import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import logoutlogo from "../assets/logout.svg";
 import warning from "../assets/warning.svg";
@@ -102,15 +102,16 @@ function ResponsiveDrawer(props) {
       },
     },
   });
+  // eslint-disable-next-line
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = (event) => {
     if (
@@ -124,8 +125,8 @@ function ResponsiveDrawer(props) {
   // eslint-disable-next-line
   const { isLoggedIn, username, login, logout } = React.useContext(UserContext);
 
-  const openUser = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  // const openUser = Boolean(anchorEl);
+  // const id = open ? "simple-popover" : undefined;
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -198,14 +199,14 @@ function ResponsiveDrawer(props) {
                 <div style={{ marginRight: 4, color: "#F0E6DB" }}>
                   {username.nama}
                 </div>{" "}
-                {anchorEl ? (
+                {/* {anchorEl ? (
                   <ExpandLess style={{ color: "#F0E6DB" }} />
                 ) : (
                   <ExpandMore style={{ color: "#F0E6DB" }} />
-                )}
+                )} */}
               </Button>
             </Paper>
-            <Popover
+            {/* <Popover
               id={id}
               open={openUser}
               anchorEl={anchorEl}
@@ -216,7 +217,7 @@ function ResponsiveDrawer(props) {
               }}
             >
               <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-            </Popover>
+            </Popover> */}
           </Toolbar>
         </AppBar>
 

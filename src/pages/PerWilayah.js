@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid, Toolbar } from "@mui/material";
 import * as React from "react";
-import Filter from "../components/common/Filter";
+// import Filter from "../components/common/Filter";
 import DataGrid, {
   Column,
   Pager,
@@ -10,24 +10,6 @@ import DataGrid, {
 import ProgressBar from "../components/ProgressBar";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import api from "../api/axios";
-
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 function Chip({ title }) {
   return (
@@ -72,41 +54,26 @@ export default function Tes() {
   }, []);
 
   // eslint-disable-next-line
-  const [dataDetail, setDataDetail] = React.useState([
-    {
-      nomor: "1",
-      provinsi: "Nancy Davolio",
-      kabupaten: "Wiyung ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "20",
-    },
-    {
-      nomor: "2",
-      provinsi: "Nancy Davolio",
-      kabupaten: "Dupak ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "30",
-    },
-    {
-      nomor: "3",
-      provinsi: "Nancy Davolio",
-      kabupaten: "Perak ",
-      kecamatan: "50",
-      kelurahanDesa: "50",
-      relawan: "50",
-      target: "50",
-      angka: "50",
-      total: "40",
-    },
-  ]);
+  const [dataDetail, setDataDetail] = React.useState();
+  React.useEffect(() => {
+    if (isDetail) {
+      api
+        .post(`/web/wilayah_kab`, { idKab: idKab })
+        .then((res) => {
+          const updateData = res.data.data.map((item, index) => ({
+            ...item,
+            nomor: index + 1,
+          }));
+          setDataDetail(updateData);
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle errors
+        });
+    }
+    // eslint-disable-next-line
+  }, [isDetail]);
+
   // eslint-disable-next-line
   const [gridInstance, setGridInstance] = React.useState(null);
 
@@ -118,7 +85,7 @@ export default function Tes() {
   }, [data]);
 
   // eslint-disable-next-line
-  const [open, setOpen] = React.useState(false);
+  const [idKab, setIdKab] = React.useState("");
 
   const DiffCell = (e) => {
     return (
@@ -126,6 +93,7 @@ export default function Tes() {
         onClick={() => {
           if (!isDetail) {
             setIsDetail(true);
+            setIdKab(e.data.idKab);
           }
         }}
       >
@@ -149,13 +117,6 @@ export default function Tes() {
       e.cellElement.style.border = "1px solid #694C2B";
       e.cellElement.style.borderBottom = "none";
     }
-    // Tracks the `Amount` data field
-    // e.watch(function() {
-    //     return e.data.Amount;
-    // }, function() {
-    //     e.cellElement.style.color = e.data.Amount >= 10000 ? "green" : "red";
-    // })
-    // }
   };
 
   return (
@@ -172,9 +133,9 @@ export default function Tes() {
       <Toolbar />
       <Container maxWidth="false" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Filter />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             {!isDetail ? (
               <DataGrid
@@ -339,14 +300,18 @@ export default function Tes() {
                     cellRender={BarCell}
                   />
                 </Column>
-                <Paging defaultPageSize={10} />
-                <Pager
-                  visible={true}
-                  allowedPageSizes={allowedPageSizes}
-                  showPageSizeSelector={true}
-                  showInfo={true}
-                  showNavigationButtons={true}
-                />
+                {dataDetail && dataDetail.length > 5 && (
+                  <div>
+                    <Paging defaultPageSize={5} />
+                    <Pager
+                      visible={true}
+                      allowedPageSizes={allowedPageSizes}
+                      showPageSizeSelector={true}
+                      showInfo={true}
+                      showNavigationButtons={true}
+                    />
+                  </div>
+                )}
                 {/* <Scrolling mode="virtual" /> */}
                 <Sorting mode="multiple" showSortIndexes={false} />
               </DataGrid>

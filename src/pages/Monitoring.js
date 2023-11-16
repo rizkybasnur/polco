@@ -1,14 +1,14 @@
 import { Box, Container, Grid, Toolbar } from "@mui/material";
 import * as React from "react";
-import Filter from "../components/common/Filter";
+// import Filter from "../components/common/Filter";
 import Chip from "../components/common/Chip";
 import DialogKk from "../components/monitoring/DialogKk";
 import DialogDataMasuk from "../components/monitoring/DialogDataMasuk";
 import { DataGrid } from "devextreme-react";
 import {
   Column,
+  Pager,
   Paging,
-  Scrolling,
   Selection,
   Sorting,
 } from "devextreme-react/data-grid";
@@ -16,25 +16,9 @@ import DialogRt from "../components/monitoring/DialogRt";
 import DialogMap from "../components/monitoring/DialogMap";
 import api from "../api/axios";
 
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
-
 export default function Tes() {
+  const allowedPageSizes = [5, 10, "all"];
+
   // eslint-disable-next-line
   const [data, setData] = React.useState();
   // eslint-disable-next-line
@@ -63,9 +47,10 @@ export default function Tes() {
       setrt(e.data.kodeEvent);
       setOpenDataMasuk(true);
     };
+    const a = e.data.progress + "/" + e.data.target;
     return (
       <div onClick={toggleDataMasuk}>
-        <Chip id="1" title={e.value} />
+        <Chip id={e.data.progress !== "10" ? "0" : "1"} title={a} />
       </div>
     );
   };
@@ -167,9 +152,9 @@ export default function Tes() {
       <Toolbar />
       <Container maxWidth="false" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Filter />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <DataGrid
               showBorders={true}
@@ -232,8 +217,18 @@ export default function Tes() {
                 cellRender={DiffCell}
               />
               <Selection mode="single" />
-              <Paging defaultPageSize={10} />
-              <Scrolling mode="virtual" />
+              {data && data.length > 5 && (
+                <div>
+                  <Paging defaultPageSize={5} />
+                  <Pager
+                    visible={true}
+                    allowedPageSizes={allowedPageSizes}
+                    showPageSizeSelector={true}
+                    showInfo={true}
+                    showNavigationButtons={true}
+                  />
+                </div>
+              )}
               <Sorting mode="multiple" showSortIndexes={false} />
             </DataGrid>
           </Grid>

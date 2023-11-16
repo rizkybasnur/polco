@@ -95,6 +95,32 @@ function Table({
               // Check if the age is null, and return a default value if true
               if (item.custom) {
                 if (item.custom === "rute") {
+                  const link = () => {
+                    if (data.data.rute.length === 1) {
+                      const location = `${data.data.rute[0].lat},${data.data.rute[0].long}`;
+                      const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${location}`;
+                      window.open(googleMapsLink, "_blank");
+                    } else if (data.data.rute.length >= 2) {
+                      const origin = `${data.data.rute[0].lat},${data.data.rute[0].long}`;
+                      const destination = `${
+                        data.data.rute[data.data.rute.length - 1].lat
+                      },${data.data.rute[data.data.rute.length - 1].long}`;
+
+                      let googleMapsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
+                      if (data.data.rute.length > 2) {
+                        const waypoints = data.data.rute
+                          .slice(1, -1)
+                          .map((coord) => `${coord.lat},${coord.long}`);
+                        googleMapsLink += `&waypoints=${waypoints.join("|")}`;
+                      }
+                      window.open(googleMapsLink, "_blank");
+                    } else {
+                      console.log(
+                        "Coordinates array should contain at least one point for location search or two points for directions."
+                      );
+                    }
+                  };
+
                   return (
                     <div
                       style={{ display: "flex", gap: 8 }}
@@ -102,6 +128,7 @@ function Table({
                     >
                       <img src={Rute} alt="rute" />{" "}
                       <span
+                        onClick={link}
                         style={{
                           color: "#175CD3",
                           fontFamily: "DM Sans",
@@ -131,7 +158,7 @@ function Table({
                           id="demo-simple-select-label"
                           style={{ color: "#F8F3ED" }}
                         >
-                          Pilih wilayah
+                          Jadikan Terpilih
                         </InputLabel>
 
                         <Select
@@ -154,7 +181,9 @@ function Table({
                   }
                 }
                 if (item.custom === "photo") {
-                  let images = datas.map((e) => ({ src: e.dokumentasi }));
+                  let images = datas.map((e) => ({
+                    src: e.fotoDokumentasi || e.fotoKk || e.fotoWawancara,
+                  }));
                   return (
                     <div>
                       <img
@@ -165,9 +194,6 @@ function Table({
                         onClick={(e) => {
                           setIsOpen(true);
                           setCurrImg(data.rowIndex);
-                          console.log(currImg);
-                          console.log(data.rowIndex);
-                          // console.log(images);
                         }}
                       />
                       <ImgsViewer
@@ -206,6 +232,27 @@ function Table({
                       color={data.value === "1" ? "success" : "danger"}
                     />
                   );
+                }
+                if (item.custom === "kuisioner") {
+                  return (
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <Chip title={data.data.no_kuisioner} color="success" />
+                      <div>{data.data.kesioner}</div>
+                    </div>
+                  );
+                }
+                if (item.custom === "jawab") {
+                  return (
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <Chip title={data.data.no_kuisioner} color="danger" />
+                    </div>
+                  );
+                }
+                if (item.custom === "lat") {
+                  return <div>{data.data.rute[0].lat}</div>;
+                }
+                if (item.custom === "long") {
+                  return <div>{data.data.rute[0].long}</div>;
                 }
                 if (item.custom === "rtrw") {
                   return <div>{data.data.idRt + "/" + data.data.idRw}</div>;

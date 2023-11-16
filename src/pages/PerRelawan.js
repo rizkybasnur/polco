@@ -11,36 +11,18 @@ import {
   Toolbar,
 } from "@mui/material";
 import * as React from "react";
-import Filter from "../components/common/Filter";
+// import Filter from "../components/common/Filter";
 import { DataGrid } from "devextreme-react";
 import {
   Column,
+  Pager,
   Paging,
-  Scrolling,
   SearchPanel,
   Sorting,
 } from "devextreme-react/data-grid";
 import ProgressBar from "../components/ProgressBar";
 import CloseIcon from "@mui/icons-material/Close";
 import api from "../api/axios";
-
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 function Chip({ title }) {
   return (
@@ -63,6 +45,8 @@ function Chip({ title }) {
 }
 
 export default function Tes() {
+  const allowedPageSizes = [5, 10, "all"];
+
   // eslint-disable-next-line
   const [data, setData] = React.useState();
   React.useEffect(() => {
@@ -76,6 +60,28 @@ export default function Tes() {
         // Handle errors
       });
   }, []);
+
+  const [open, setOpen] = React.useState(false);
+
+  const onClose = () => {
+    setOpen(false);
+  };
+  // eslint-disable-next-line
+  const [dataDetail, setDataDetail] = React.useState();
+  React.useEffect(() => {
+    if (open) {
+      api
+        .get(`/web/per_desa`)
+        .then((res) => {
+          setDataDetail(res.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle errors
+        });
+    }
+    // eslint-disable-next-line
+  }, [open]);
   //   [
   //   {
   //     nomor: "1",
@@ -138,12 +144,6 @@ export default function Tes() {
     return <ProgressBar completed={cellData.value} />;
   };
 
-  const [open, setOpen] = React.useState(false);
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
   const onCellPrepared = (e) => {
     if (e.rowType === "data") {
       e.cellElement.style.color = "#F8F3ED";
@@ -177,9 +177,9 @@ export default function Tes() {
       <Toolbar />
       <Container maxWidth="false" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Filter />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <DataGrid
               showBorders={true}
@@ -252,8 +252,18 @@ export default function Tes() {
                 cssClass="table-center"
                 cellRender={BarCell}
               />
-              <Paging defaultPageSize={10} />
-              <Scrolling mode="virtual" />
+              {data && data.length > 5 && (
+                <div>
+                  <Paging defaultPageSize={5} />
+                  <Pager
+                    visible={true}
+                    allowedPageSizes={allowedPageSizes}
+                    showPageSizeSelector={true}
+                    showInfo={true}
+                    showNavigationButtons={true}
+                  />
+                </div>
+              )}
               <Sorting mode="multiple" showSortIndexes={false} />
             </DataGrid>
           </Grid>
@@ -279,7 +289,7 @@ export default function Tes() {
           <Paper elevation={0} sx={{ p: 0 }}>
             <DataGrid
               showBorders={true}
-              dataSource={data}
+              dataSource={dataDetail}
               allowColumnResizing={true}
               showColumnLines={true}
               showRowLines={true}
@@ -292,30 +302,27 @@ export default function Tes() {
               <Column
                 sortOrder="asc"
                 caption="Nomor"
+                dataField="nomor"
                 width="auto"
-                cssClass="table-center"
-                calculateCellValue={(rowData) => {
-                  return data.indexOf(rowData) + 1;
-                }}
               ></Column>
               <Column
                 sortOrder="asc"
                 width="auto"
-                caption="User"
-                dataField="user"
+                caption="Provinsi"
+                dataField="provinsi"
                 cssClass="table-center"
               ></Column>
               <Column
                 sortOrder="asc"
-                caption="Nama"
-                dataField="nama"
+                caption="Kabupaten/Kota"
+                dataField="kabupaten"
                 cssClass="table-center"
               />
               <Column
                 sortOrder="asc"
                 width="auto"
-                caption="Handphone"
-                dataField="handphone"
+                caption="Kecamatan"
+                dataField="kecamatan"
                 cssClass="table-center"
               />
               <Column
@@ -349,8 +356,18 @@ export default function Tes() {
                 dataField="totalPersen"
                 cssClass="table-center"
               />
-              <Paging defaultPageSize={10} />
-              <Scrolling mode="virtual" />
+              {data && data.length > 5 && (
+                <div>
+                  <Paging defaultPageSize={5} />
+                  <Pager
+                    visible={true}
+                    allowedPageSizes={allowedPageSizes}
+                    showPageSizeSelector={true}
+                    showInfo={true}
+                    showNavigationButtons={true}
+                  />
+                </div>
+              )}
               <Sorting mode="multiple" showSortIndexes={false} />
             </DataGrid>
           </Paper>

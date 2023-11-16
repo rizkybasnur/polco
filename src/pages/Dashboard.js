@@ -11,26 +11,8 @@ import * as React from "react";
 import Orders from "../components/Orders";
 import Deposits from "../components/Deposits";
 import DataMasukPerWilayah from "../components/DataMasukPerWilayah";
-import Filter from "../components/common/Filter";
+// import Filter from "../components/common/Filter";
 import api from "../api/axios";
-
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 export default function Tes() {
   // eslint-disable-next-line
@@ -61,9 +43,9 @@ export default function Tes() {
       <Toolbar />
       <Container maxWidth="false" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12} lg={12}>
+          {/* <Grid item xs={12} md={12} lg={12}>
             <Filter />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6} lg={3}>
             <Paper
               elevation={0}
@@ -132,6 +114,7 @@ export default function Tes() {
                 title="Total Data Per Daerah"
                 isDonut={false}
                 icon="graph"
+                daerah={data?.daerah}
               />
             </Paper>
           </Grid>
