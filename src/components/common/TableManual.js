@@ -6,8 +6,13 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
+import { useState } from "react";
+import ImgsViewer from "react-images-viewer";
 
 function TableManual({ title, data }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currImg, setCurrImg] = useState(0);
+
   const toggleMap = (data) => {
     const location = `${data?.latLang},${data?.latLong}`;
     const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${location}`;
@@ -284,7 +289,28 @@ function TableManual({ title, data }) {
                   textAlign: "left",
                 }}
               >
-                {data?.foto}
+                <div>
+                  <img
+                    src={data?.foto}
+                    alt="rute"
+                    style={{ borderRadius: 75, width: 48, height: 48 }}
+                    className="cursor-pointer"
+                    onClick={(e) => {
+                      setIsOpen(true);
+                      setCurrImg(data.rowIndex);
+                    }}
+                  />
+                  <ImgsViewer
+                    imgs={[data?.foto]}
+                    currImg={currImg}
+                    showThumbnails={true}
+                    isOpen={isOpen}
+                    onClickPrev={(e) => setCurrImg(currImg - 1)}
+                    onClickNext={(e) => setCurrImg(currImg + 1)}
+                    onClickThumbnail={(index) => setCurrImg(index)}
+                    onClose={(e) => setIsOpen(false)}
+                  />
+                </div>
               </TableCell>
             </TableRow>
           </TableBody>

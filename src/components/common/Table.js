@@ -237,14 +237,14 @@ function Table({
                   return (
                     <div style={{ display: "flex", gap: 8 }}>
                       <Chip title={data.data.no_kuisioner} color="success" />
-                      <div>{data.data.kesioner}</div>
+                      <div>{data?.data?.kesioner}</div>
                     </div>
                   );
                 }
                 if (item.custom === "jawab") {
                   return (
                     <div style={{ display: "flex", gap: 8 }}>
-                      <Chip title={data.data.no_kuisioner} color="danger" />
+                      <Chip title={data?.data?.no_jawab} color="danger" />
                     </div>
                   );
                 }
